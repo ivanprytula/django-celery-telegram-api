@@ -13,25 +13,18 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 
+from decouple import AutoConfig
 from django.core.exceptions import ImproperlyConfigured
-
-
-def get_env_value(env_variable):
-    try:
-        return os.environ[env_variable]
-    except KeyError:
-        error_msg = f'Set the {env_variable} environment variable'
-        raise ImproperlyConfigured(error_msg)
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+config = AutoConfig(search_path=BASE_DIR / '.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = get_env_value('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -77,12 +70,12 @@ DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3',
 
 AUTH_PASSWORD_VALIDATORS = [{'NAME': 'django.contrib.auth.password_validation'
                                      '.UserAttributeSimilarityValidator', },
-    {'NAME': 'django.contrib.auth.password_validation'
-             '.MinimumLengthValidator', },
-    {'NAME': 'django.contrib.auth.password_validation'
-             '.CommonPasswordValidator', },
-    {'NAME': 'django.contrib.auth.password_validation'
-             '.NumericPasswordValidator', }, ]
+                            {'NAME': 'django.contrib.auth.password_validation'
+                                     '.MinimumLengthValidator', },
+                            {'NAME': 'django.contrib.auth.password_validation'
+                                     '.CommonPasswordValidator', },
+                            {'NAME': 'django.contrib.auth.password_validation'
+                                     '.NumericPasswordValidator', }, ]
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/

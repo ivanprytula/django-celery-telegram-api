@@ -11,4 +11,4 @@ __pycache__/
 
 db.sqlite3
 
-.env
+dj_posts_to_telegram/.env

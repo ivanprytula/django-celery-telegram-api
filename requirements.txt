@@ -5,3 +5,4 @@ pylint==2.9.3
 pylint-django==2.4.4
 redis==3.5.3
 flower==1.0.0
+python-decouple==3.4
