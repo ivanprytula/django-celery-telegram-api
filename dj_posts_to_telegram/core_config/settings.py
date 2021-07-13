@@ -128,6 +128,6 @@ CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
 CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/0"
 
 TELEGRAM_API = {
-    'bot_token': '1772567719:AAGrOu0Bl-hWpn9VQa-GmeUAbgSNdkaLe7A',
+    'bot_token': config('TELEGRAM_API_BOT_TOKEN'),
     'channel_name': 'djcelery',
 }
