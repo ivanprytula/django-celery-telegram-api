@@ -1,7 +1,7 @@
 # Project description
 
 ## What?
-Newly published articles/posts from Django blog to Telegram channel.
+Newly published articles/posts from Django (added on admin page) to Telegram channel.
 
 ## When?
 Every defined period of time (x min) run task/-s with django-celery-beat.
