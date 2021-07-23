@@ -1,0 +1,26 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+Django = "~=3.2"
+django-celery-beat = "==2.2.1"
+python-decouple = "~=3.4"
+psycopg2-binary = "~=2.8"
+dj-database-url = "~=0.5"
+celery = "==5.1.2"
+flower = "==1.0.0"
+redis = "==3.5.3"
+python-telegram-bot = "==13.7"
+gunicorn = "~=20.1"
+
+[dev-packages]
+pylint-django = "~=2.4"
+flake8-django = "~=1.1"
+
+[requires]
+python_version = "3.8"
+
+[scripts]
+check_envs = "python -c \"print('Check your .env files')\""
