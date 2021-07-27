@@ -1,0 +1,24 @@
+[flake8]
+ignore =
+    D100,
+    D101,
+    D102,
+    D103,
+    D203,
+    C101,
+    T001,
+    S101
+exclude =
+    # No need to traverse our git directory
+    .git,
+    # There's no value in checking cache directories
+    __pycache__,
+    .venv,
+    .idea
+max-complexity = 10
+max-line-length = 100
+# Ignore non PEP 8 compliant rules as suggested by black
+extend-ignore =
+    E203,  # https://github.com/psf/black/blob/master/docs/the_black_code_style.md#slices
+    WPS305
+
