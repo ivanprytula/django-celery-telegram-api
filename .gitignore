@@ -2,13 +2,17 @@
 .vscode/
 .DS_Store
 
+# Environments
 venv/
 env/
 .venv
+deploy/dev/.env
+deploy/prod/.env
+project/.env
 
 __pycache__/
 *.py[cod]
 
-db.sqlite3
-
-dj_posts_to_tg_project/.env
+# Django stuff:
+*/db.sqlite3
+*/staticfiles
