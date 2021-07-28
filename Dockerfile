@@ -53,7 +53,7 @@ RUN adduser --quiet --disabled-login --disabled-password $USER
 RUN echo "pyivan:pyivan" | chpasswd
 
 # Chown all the files to the pyivan user
-RUN chown -R $USER:$USER $USERAPPHOME
+RUN chown $USER:$USER -R $USERAPPHOME/
 
 # Change to the new user
 USER $USER

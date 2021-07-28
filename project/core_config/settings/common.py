@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     # Local
     'accounts',
     'blog',
+    'pages',
     'django_celery_beat',
 ]
 

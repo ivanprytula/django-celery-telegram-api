@@ -35,8 +35,9 @@ services:
 
   celery:
     build: .
+    user: root
     command: >
-      sh -c "celery -A core_config worker -l INFO"
+      sh -c "celery -A core_config worker -l INFO -f logs/celery.log"
     volumes:
       - ./project/:/usr/src/app/
     restart: always
