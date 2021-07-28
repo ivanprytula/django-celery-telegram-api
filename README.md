@@ -1,5 +1,31 @@
-# Project description
+# Table of Contents
+1. [Short project description](#project-decription)
+2. [Tech stack](#tech-stack)
+3. [Project setup](#project-setup)
+   1. [Dev/local](#project-setup-local)
+   2. [Production grade](#project-setup-prod)
+4. [TODOs](#to-dos)
 
+
+The Zen of Python, by Tim Peters:
+> _Beautiful is better than ugly._
+
+
+---
+**Handy commands:**
+
+```shell
+docker rmi -f $(docker images -f "dangling=true" -q)
+
+python -c "import django; print(django.__path__)"
+
+chmod +x ./setup-scripts/*.sh
+```
+
+---
+
+
+# <a id="project-decription">Short project description</a>
 ## What?
 Newly published articles/posts from Django blog (added on admin page) to Telegram channel.
 
@@ -13,6 +39,8 @@ Learn how to work with Celery/Celery Beat and Telegram API.
 1. Create task with @shared_task decorator for app logic in <app_name>/tasks.py
 2. Create celery-beat Periodic Tasks in Django admin page.
 3. Run Redis server (in Docker or system-wide): 
+
+
 ```shell
 docker run -p 6379:6379 --name some-redis -d redis
 ```
@@ -27,9 +55,21 @@ celery -A core_config beat -l INFO --scheduler django_celery_beat.schedulers:Dat
 
 Bot's username: DjCeleryPosts_Bot
 
-## How to start _local_ development?
-Clone the repo. It's easy.  
-Next. In application's root directory...
+# <a id="tech-stack">Tech stack</a>
+- Python 3.9
+- Django 3.2.5
+- PostgreSQL 13.3
+- Docker & Docker Compose
+- Celery & Celery Beat & Flower
+- Redis
+- Telegram API (bot for channel management)
+- .....
+
+
+# <a id="project-setup">Project setup</a>
+
+## <a id="project-setup-local">Dev/local</a>
+Clone the repo. It's easy. Next. In application's root directory...
 
 ### Classic way:
 
@@ -46,10 +86,6 @@ Next. In application's root directory...
 
 #### Manually
 
-```shell
-docker rmi -f $(docker images -f "dangling=true" -q)
-python -c "import django; print(django.__path__)"
-```
 
 - Refer to `setup_scripts/dev_setup_docker.sh` for detailed description:
   - `chmod +x ./entrypoint.sh`
@@ -65,7 +101,8 @@ python -c "import django; print(django.__path__)"
 1. `chmod +x ./setup-scripts/*.sh`
 3. `setup_scripts/dev_setup_docker.sh`
 
-## Build _production grade_ image
+
+## <a id="project-setup-prod">Production grade</a>
 - Refer to `setup_scripts/prod_setup_docker.sh` for detailed description:
   - `$ docker-compose -f docker-compose.prod.yml build`
   - `$ docker-compose -f docker-compose.prod.yml up`
@@ -74,3 +111,5 @@ python -c "import django; print(django.__path__)"
 ### What role of Nginx?
 
 user <-> nginx <-> app_server <-> django
+
+# <a id="to-dos">TODOs</a>
