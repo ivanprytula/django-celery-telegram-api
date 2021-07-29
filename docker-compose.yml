@@ -60,6 +60,18 @@ services:
       - web
       - redis
 
+  flower_dashboard:
+    build: .
+    command: celery -A core_config --broker=redis://redis:6379/0 flower --port=5555
+    ports:
+      - "5555:5555"
+    restart: always
+    env_file:
+      - ./deploy/dev/.env
+    depends_on:
+      - web
+      - redis
+      - celery
 
 volumes:
   postgres_data:
