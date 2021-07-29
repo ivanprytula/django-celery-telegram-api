@@ -18,7 +18,7 @@ services:
       - ./project/:/usr/src/app
     #  maps ports and container code/database to local filesystem
     ports:
-      - 8000:8000
+      - "8000:8000"
     restart: always
     env_file:
       - ./deploy/dev/.env
@@ -35,7 +35,7 @@ services:
 
   celery:
     build: .
-    user: root
+    user: "${UID}:${GID}"
     command: >
       sh -c "celery -A core_config worker -l INFO -f logs/celery.log"
     volumes:
