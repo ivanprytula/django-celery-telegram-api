@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.8'
 services:
 
   db:
@@ -8,22 +8,17 @@ services:
     restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    networks:
-      - backend
-    environment:
-      - POSTGRES_DB=djtwitter_db_prod
-      - POSTGRES_USER=inoxpyivan
-      - POSTGRES_PASSWORD=inoxpyivanpswdprod
+    env_file:
+      - ./deploy/prod/.env
 
   web:
-    build: .
-    image: ivanprytula/dj_twitter_clone:1.1
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
     volumes:
-      - static_volume:/usr/src/app_djtwitter_clone/staticfiles
+      - static_volume:/usr/src/app/staticfiles
     expose:
       - 8000
-    networks:
-      - backend
     env_file:
       - ./deploy/prod/.env
     command: gunicorn --workers 3 core_config.wsgi:application --bind 0.0.0.0:8000
@@ -31,18 +26,15 @@ services:
       - db
 
   nginx:
-    build: ./nginx
+    build:
+      context: ./deploy/nginx
+      dockerfile: Dockerfile
     volumes:
-      - static_volume:/usr/src/app_djtwitter_clone/staticfiles
+      - static_volume:/usr/src/app/staticfiles
     ports:
-      - 1337:80
-    networks:
-      - backend
+      - "1337:80"
     depends_on:
       - web
-
-networks:
-  backend:
 
 volumes:
   postgres_data:
