@@ -6,7 +6,8 @@ from .models import CustomUser
 
 
 class CustomUserAdmin(UserAdmin):
-    """Customize the look of the auto-generated admin for the CustomUser model"""
+    """Customize the look of the auto-generated admin for the CustomUser
+    model"""
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
@@ -22,7 +23,9 @@ class CustomUserAdmin(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2', 'is_staff', 'is_active')
+            'fields': (
+                'email', 'password1', 'password2', 'is_staff', 'is_active'
+            )
         }
          ),
     )

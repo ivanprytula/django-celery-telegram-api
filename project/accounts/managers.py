@@ -3,8 +3,8 @@ from django.contrib.auth.base_user import BaseUserManager
 
 class CustomUserManager(BaseUserManager):
     """
-    Custom user model manager where email is the unique identifiers
-    for authentication instead of usernames.
+    Custom user model manager where email is the unique identifier
+    for authentication instead of username.
     """
 
     def create_user(self, email, password, **extra_fields):
