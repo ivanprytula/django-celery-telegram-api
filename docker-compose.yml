@@ -16,6 +16,7 @@ services:
       context: .
     volumes:
       - ./project/:/usr/src/app
+      - media_volume:/usr/src/app/mediafiles
     #  maps ports and container code/database to local filesystem
     ports:
       - "8000:8000"
@@ -75,3 +76,4 @@ services:
 
 volumes:
   postgres_data:
+  media_volume:

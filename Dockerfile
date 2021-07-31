@@ -17,6 +17,7 @@ ENV USERAPPHOME /usr/src/app
 # that follow it in the Dockerfile. --> /path/to/workdir
 RUN mkdir $USERAPPHOME
 RUN mkdir $USERAPPHOME/staticfiles
+RUN mkdir $USERAPPHOME/mediafiles
 WORKDIR $USERAPPHOME
 
 
