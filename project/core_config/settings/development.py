@@ -5,6 +5,7 @@ Decouple always searches for Options in this order:
  - Repository: ini or .env file;
  - default argument passed to config.
 """
+import os
 from pathlib import Path
 
 import dj_database_url
@@ -30,6 +31,9 @@ DATABASES = {
 }
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+MEDIA_URL = '/mediafiles/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 # Email sending
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

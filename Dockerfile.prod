@@ -9,6 +9,7 @@ ENV USERAPPHOME /usr/src/app
 
 RUN mkdir $USERAPPHOME
 RUN mkdir $USERAPPHOME/staticfiles
+RUN mkdir $USERAPPHOME/mediafiles
 WORKDIR $USERAPPHOME
 
 

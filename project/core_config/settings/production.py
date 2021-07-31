@@ -5,6 +5,7 @@ Decouple always searches for Options in this order:
  - Repository: ini or .env file;
  - default argument passed to config.
 """
+import os
 from pathlib import Path
 
 import dj_database_url
@@ -28,6 +29,9 @@ DATABASES = {
 }
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+MEDIA_URL = '/mediafiles/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 # AWS_ACCESS_KEY_ID = config('SPACES_ACCESS_KEY')
 # AWS_SECRET_ACCESS_KEY = config('SPACES_SECRET_ACCESS_KEY')
