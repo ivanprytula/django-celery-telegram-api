@@ -33,7 +33,7 @@ class Comment(models.Model):
     post = models.ForeignKey(to='Post', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.author
+        return str(self.author)
 
 
 class Category(models.Model):

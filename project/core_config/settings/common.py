@@ -39,6 +39,7 @@ INSTALLED_APPS = [
 
     # 3-rd party
     'django_celery_beat',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +127,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # $ python -m smtpd -n -c DebuggingServer localhost:1025
 # EMAIL_HOST = "localhost"
 # EMAIL_PORT = 1025
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS':
+        'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}

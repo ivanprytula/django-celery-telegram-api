@@ -44,7 +44,7 @@ def post_unpublished_to_telegram():
                     text=msg_html, parse_mode=telegram.ParseMode.HTML)
                 fresh_post.is_published_to_telegram = True
                 fresh_post.save()
-            except Exception:
+            except Exception as common_exec:
                 raise telegram.error.TelegramError(
                     'Something is wrong with Telegram '
-                    'channel.')
+                    'channel.') from common_exec

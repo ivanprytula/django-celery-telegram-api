@@ -11,7 +11,9 @@ ignore=.git, logs, setup_scripts, migrations
 # can either give multiple identifier separated by comma (,) or put this option
 # multiple time (only on the command line, not in the configuration file where
 # it should appear only once).
-disable=R0201,C0111,C0114,C0115,C0116,import-outside-toplevel
+disable=R0201,C0111,C0114,C0115,C0116,
+        import-outside-toplevel,
+        too-few-public-methods
 
 
 [REPORTS]
