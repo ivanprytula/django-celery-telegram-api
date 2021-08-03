@@ -9,7 +9,7 @@
         {{ post.created_at.date }} |&nbsp;
                                    Categories:&nbsp;
         {% for category in post.categories.all %}
-            <a href="{% url 'blog:post_category' category.name %}">
+            <a href="{% url 'blog:post-category' category.name %}">
                 {{ category.name }}
             </a>&nbsp;
         {% endfor %}

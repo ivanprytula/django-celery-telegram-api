@@ -35,9 +35,9 @@ class PostCreateView(CreateView):
     """Post create view with all model fields."""
 
     model = Post
-    template_name = 'blog/post_new.html'
+    template_name = 'blog/post_create.html'
     fields = '__all__'
-    success_url = reverse_lazy('blog:post_list')
+    success_url = reverse_lazy('blog:post-list')
 
 
 class PostDetailView(DetailView):
@@ -78,13 +78,13 @@ class PostUpdateView(UpdateView):
     fields = ('title', 'content', 'categories')
 
     def get_success_url(self):
-        return reverse_lazy('blog:post_detail', kwargs={'pk': self.object.id})
+        return reverse_lazy('blog:post-detail', kwargs={'pk': self.object.id})
 
 
 class PostDeleteView(DeleteView):
     model = Post
     template_name = 'blog/post_delete.html'
-    success_url = reverse_lazy('blog:post_list')
+    success_url = reverse_lazy('blog:post-list')
 
 
 class BlogCategory(TemplateView):

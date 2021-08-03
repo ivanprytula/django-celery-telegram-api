@@ -27,7 +27,7 @@
         <hr>
 
         <button class="btn btn-outline-light btn-sm">
-            <a class="nav-link" href="{% url 'blog:post_new' %}">Add new post</a>
+            <a class="nav-link" href="{% url 'blog:post-create' %}">Add new post</a>
         </button>
 
         <hr>
@@ -49,7 +49,7 @@
             {{ post.created_at.date }} |&nbsp;
             Categories:&nbsp;
             {% for category in post.categories.all %}
-                <a href="{% url 'blog:post_category' category.name %}">
+                <a href="{% url 'blog:post-category' category.name %}">
                     {{ category.name }}
                 </a>&nbsp;
             {% endfor %}

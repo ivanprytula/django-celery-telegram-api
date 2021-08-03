@@ -5,12 +5,12 @@
 
         <hr>
         {% for post in posts %}
-            <h2><a href="{% url 'blog:post_detail' post.pk %}">{{ post.title }}</a></h2>
+            <h2><a href="{% url 'blog:post-detail' post.pk %}">{{ post.title }}</a></h2>
             <small>
                 {{ post.created_at.date }} |&nbsp;
                                            Categories:&nbsp;
                 {% for category in post.categories.all %}
-                    <a href="{% url 'blog:post_category' category.name %}">
+                    <a href="{% url 'blog:post-category' category.name %}">
                         {{ category.name }}
                     </a>&nbsp;
                 {% endfor %}
