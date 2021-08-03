@@ -7,7 +7,7 @@ from .sandbox_views import (
     staff_place,
     add_messages,
 )
-from .views import AboutPageView, HomePageView
+from .views import AboutPageView
 
 app_name = 'pages'
 
@@ -21,8 +21,7 @@ extra_patterns = [
 ]
 
 urlpatterns = [
-    path('', HomePageView.as_view(), name='home'),
-    path('about/', AboutPageView.as_view(), name='about'),
+    path('', AboutPageView.as_view(), name='about'),
     path('test/', include(extra_patterns)),
 
 ]

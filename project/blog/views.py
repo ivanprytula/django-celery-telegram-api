@@ -7,11 +7,11 @@ from django.views.generic.edit import (UpdateView, DeleteView, )
 from blog.models import Post
 
 
-class BlogListView(ListView):
+class PostListView(ListView):
     """Blog blog home page view with pagination."""
 
     model = Post
-    template_name = 'blog/blog_list.html'
+    template_name = 'blog/post_list.html'
     context_object_name = 'posts'
     paginate_by = 5
 
@@ -37,7 +37,7 @@ class PostCreateView(CreateView):
     model = Post
     template_name = 'blog/post_new.html'
     fields = '__all__'
-    success_url = reverse_lazy('blog:blog_list')
+    success_url = reverse_lazy('blog:post_list')
 
 
 class PostDetailView(DetailView):
@@ -84,7 +84,7 @@ class PostUpdateView(UpdateView):
 class PostDeleteView(DeleteView):
     model = Post
     template_name = 'blog/post_delete.html'
-    success_url = reverse_lazy('blog:blog_list')
+    success_url = reverse_lazy('blog:post_list')
 
 
 class BlogCategory(TemplateView):
@@ -92,7 +92,7 @@ class BlogCategory(TemplateView):
     query the Post database for all posts that have been assigned
     the given category."""
 
-    template_name = 'blog/blog_category.html'
+    template_name = 'blog/post_category.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

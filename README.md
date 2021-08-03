@@ -20,6 +20,12 @@ docker rmi -f $(docker images -f "dangling=true" -q)
 python -c "import django; print(django.__path__)"
 
 chmod +x ./setup-scripts/*.sh
+
+docker-compose exec --user root web python manage.py makemigrations
+# apt-get install sudo -y
+
+cat /etc/*-release
+
 ```
 
 ---

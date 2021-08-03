@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.urls import reverse
 
 
 class Post(models.Model):
@@ -8,6 +9,7 @@ class Post(models.Model):
                                related_name='user_posts')
     title = models.CharField(max_length=255, blank=False,
                              default='Enter title...')
+    slug = models.SlugField(null=False, unique=True)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     last_modified = models.DateTimeField(auto_now=True)
@@ -20,6 +22,9 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('blog:post_detail', kwargs={'slug': self.slug})
 
 
 class Comment(models.Model):
