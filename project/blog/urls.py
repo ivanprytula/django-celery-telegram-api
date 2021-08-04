@@ -20,7 +20,7 @@ app_name = 'blog'
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path('', PostListView.as_view(), name='post-list'),
-    path('api/', include(router.urls)),
+    # path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls',
                               namespace='rest_framework')),
     path('blog/create/', PostCreateView.as_view(), name='post-create'),

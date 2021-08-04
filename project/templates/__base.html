@@ -29,7 +29,7 @@
 
 </head>
 
-<body class="d-flex flex-column h-100">
+<body class="d-flex flex-column h-100 text-center">
 
 {% block navbar %}
     <header>
@@ -45,8 +45,8 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <div class="collapse navbar-collapse justify-content-between " id="navbarSupportedContent">
+                    <ul class="navbar-nav mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link"
                                aria-current="page"
@@ -59,13 +59,26 @@
                             <a class="nav-link" href="#">smth_more</a>
                         </li>
                     </ul>
+
                     <form class="d-flex me-2">
                         <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
-                        <button type="submit" class="btn btn-outline-success">Search</button>
+                        <button type="submit" class="btn btn-outline-info">Search</button>
                     </form>
-                    <div class="">
-                        <button type="button" class="btn btn-outline-light me-2">Login</button>
-                        <button type="button" class="btn btn-warning">Sign-up</button>
+
+                    <div class="d-flex">
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'logout' %}"
+                               class="btn btn-outline-secondary me-2">Log Out</a>
+                            <a href="{% url 'password_change' %}"
+                               class="btn btn-outline-warning">chpasswd</a>
+                        {% else %}
+                            <a href="{% url 'login' %}"
+                               class="btn btn-outline-primary me-2">Login</a>
+                            <a href="{% url 'accounts:signup' %}"
+                               class="btn btn-outline-light me-2">Sign Up</a>
+                            <a href="{% url 'password_reset' %}"
+                               class="btn btn-outline-danger">sudo passwd</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -74,12 +87,7 @@
 {% endblock %}
 
 <!-- Begin page content -->
-<main class="flex-shrink-0">
-    <div class="container">
-        {% block content %}{% endblock %}
-    </div>
-</main>
-
+{% block content %}{% endblock %}
 
 <!-- Footer -->
 <footer class="footer mt-auto py-3 bg-grey">

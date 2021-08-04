@@ -1,17 +1,29 @@
 {% extends '__base.html' %}
+{% load static %}
+
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'base/css/login.css' %}">
+{% endblock %}
 
 {% block title %}Log In{% endblock %}
 
 {% block content %}
-    <h2>Login</h2>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Log In</button>
-    </form>
+    <main class="form-login mt-5 mx-auto">
+        <div class="container-md">
+            <form method="post">
+                {% csrf_token %}
 
-    <p><a href="{% url 'post-list' %}">Back to homepage</a></p>
-    <p><a href="{% url 'password_reset' %}">Reset password</a></p>
-    <p><a href="{% url 'accounts:signup' %}">Register</a></p>
+                <h1 class="h3 mb-4">Please log in</h1>
+
+                {{ form.as_p }}
+
+                <button class="w-100 btn btn-lg btn-primary mt-4"
+                        type="submit">Log in
+                </button>
+            </form>
+        </div>
+
+    </main>
+
 {% endblock %}
