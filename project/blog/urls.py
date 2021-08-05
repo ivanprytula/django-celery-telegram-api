@@ -12,7 +12,7 @@ from .views import (
 )
 
 router = routers.DefaultRouter()
-router.register(r'posts', api_views.PostViewSet)
+router.register(r'posts', api_views.PostViewSet, basename='test')
 
 app_name = 'blog'
 
@@ -20,9 +20,7 @@ app_name = 'blog'
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path('', PostListView.as_view(), name='post-list'),
-    # path('api/', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls',
-                              namespace='rest_framework')),
+    path('api/', include(router.urls)),
     path('blog/create/', PostCreateView.as_view(), name='post-create'),
     path('blog/<slug:slug>/', PostDetailView.as_view(), name='post-detail'),
     path('<int:pk>/update', PostUpdateView.as_view(), name='post-update'),

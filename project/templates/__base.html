@@ -53,10 +53,20 @@
                                href="{% url 'blog:post-list' %}">blog[0]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'pages:about' %}">about</a>
+                            <a class="nav-link" href="{% url 'pages:links-depot' %}">links_depot</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">smth_more</a>
+                            <a class="nav-link" href="{% url 'pages:python-mind-map' %}">py_mind_map</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                more
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{% url 'pages:about' %}">about</a></li>
+                                <li><a class="dropdown-item text-muted disabled" href="#">Another action</a></li>
+                            </ul>
                         </li>
                     </ul>
 
