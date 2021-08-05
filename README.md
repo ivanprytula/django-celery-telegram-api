@@ -26,6 +26,8 @@ docker-compose exec --user root web python manage.py makemigrations
 
 cat /etc/*-release
 
+# After new package was installed >> turn off VPN (if any) >> rebuild image
+
 ```
 
 ---

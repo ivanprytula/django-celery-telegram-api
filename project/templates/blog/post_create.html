@@ -1,18 +1,48 @@
 {% extends "__base.html" %}
+{% load widget_tweaks %}
 
 {% block title %}Add post{% endblock %}
 
 {% block content %}
-    <div class="card">
-        <div class="card-header">
-            <h5 class="card-title">Create a New Post</h5>
+    <main>
+        <div class="container pt-lg-5">
+            <div class="col-lg-6 col-md-6 col-sm-6 offset-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">Create a New Post</h1>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="text-danger">All fields are required</h6>
+                        <form method="post">
+                            {% csrf_token %}
+
+                            {% for hidden_field in form.hidden_fields %}
+                                {{ hidden_field }}
+                            {% endfor %}
+
+                            {% for field in form.visible_fields %}
+                                <div class="form-group">
+                                    {{ field.label_tag }}
+
+                                    {% if field.widget_type == 'checkbox' %}
+                                        {% render_field field %}
+                                    {% else %}
+                                        {% render_field field class="form-control" %}
+                                    {% endif %}
+
+                                    {% if field.help_text %}
+                                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+
+                            <button type="submit" class="btn btn-success mt-4">Create</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="btn btn-success">Create</button>
-            </form>
-        </div>
-    </div>
+
+    </main>
+
 {% endblock %}

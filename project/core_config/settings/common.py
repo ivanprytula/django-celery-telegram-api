@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # 3-rd party
     'django_celery_beat',
     'rest_framework',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
