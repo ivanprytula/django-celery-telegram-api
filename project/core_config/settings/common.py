@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # 3-rd party
     'django_celery_beat',
     'rest_framework',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -111,8 +112,8 @@ STATICFILES_DIRS = [str(BASE_DIR) + '/' + 'static', ]
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
-LOGIN_REDIRECT_URL = 'pages:home'
-LOGOUT_REDIRECT_URL = 'pages:home'
+LOGIN_REDIRECT_URL = 'blog:post-list'
+LOGOUT_REDIRECT_URL = 'blog:post-list'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

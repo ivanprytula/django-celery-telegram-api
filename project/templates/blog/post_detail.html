@@ -9,14 +9,14 @@
         {{ post.created_at.date }} |&nbsp;
                                    Categories:&nbsp;
         {% for category in post.categories.all %}
-            <a href="{% url 'blog:post_category' category.name %}">
+            <a href="{% url 'blog:post-category' category.name %}">
                 {{ category.name }}
             </a>&nbsp;
         {% endfor %}
         <p>{{ post.content | linebreaks }}</p>
 
         <h3>Leave a comment:</h3>
-        <form action="/blog/{{ post.pk }}/" method="post">
+        <form action="{{ post.get_absolute_url  }}" method="post">
             {% csrf_token %}
             <div class="form-group">
                 {{ form.author }}

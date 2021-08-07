@@ -1,4 +1,11 @@
-body {
-  background-color: khaki;
-  margin: 20px;
+/* Custom page CSS
+-------------------------------------------------- */
+
+/* Header */
+
+
+
+/* Main page content */
+main > .container {
+  padding: 60px 15px 0;
 }

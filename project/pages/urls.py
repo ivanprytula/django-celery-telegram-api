@@ -7,7 +7,7 @@ from .sandbox_views import (
     staff_place,
     add_messages,
 )
-from .views import AboutPageView, HomePageView
+from .views import (AboutPageView, LinksDepotView, MindMapView)
 
 app_name = 'pages'
 
@@ -21,8 +21,9 @@ extra_patterns = [
 ]
 
 urlpatterns = [
-    path('', HomePageView.as_view(), name='home'),
     path('about/', AboutPageView.as_view(), name='about'),
+    path('links-depot/', LinksDepotView.as_view(), name='links-depot'),
+    path('python-mind-map/', MindMapView.as_view(), name='python-mind-map'),
     path('test/', include(extra_patterns)),
 
 ]

@@ -3,7 +3,7 @@ from rest_framework import routers
 
 from .api import views as api_views
 from .views import (
-    BlogListView,
+    PostListView,
     PostCreateView,
     PostDetailView,
     PostUpdateView,
@@ -12,20 +12,18 @@ from .views import (
 )
 
 router = routers.DefaultRouter()
-router.register(r'posts', api_views.PostViewSet)
+router.register(r'posts', api_views.PostViewSet, basename='test')
 
 app_name = 'blog'
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    path('', BlogListView.as_view(), name='blog_list'),
+    path('', PostListView.as_view(), name='post-list'),
     path('api/', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls',
-                              namespace='rest_framework')),
-    path('new/', PostCreateView.as_view(), name='post_new'),
-    path('<int:pk>/', PostDetailView.as_view(), name='post_detail'),
-    path('<int:pk>/update', PostUpdateView.as_view(), name='post_update'),
-    path('<int:pk>/delete', PostDeleteView.as_view(), name='post_delete'),
-    path('<category>/', BlogCategory.as_view(), name='post_category'),
+    path('blog/create/', PostCreateView.as_view(), name='post-create'),
+    path('blog/<slug:slug>/', PostDetailView.as_view(), name='post-detail'),
+    path('<int:pk>/update', PostUpdateView.as_view(), name='post-update'),
+    path('<int:pk>/delete', PostDeleteView.as_view(), name='post-delete'),
+    path('tags/<category>/', BlogCategory.as_view(), name='post-category'),
 ]
