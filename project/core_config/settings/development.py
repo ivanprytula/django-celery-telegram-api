@@ -65,3 +65,5 @@ TELEGRAM_API = {
     'bot_token': config('TELEGRAM_API_BOT_TOKEN'),
     'channel_name': 'djcelery',
 }
+
+USER_INVITATION_SECRET = config('USER_INVITATION_SECRET')
