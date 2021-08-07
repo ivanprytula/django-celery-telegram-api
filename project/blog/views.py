@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.urls import reverse_lazy
 from django.views.generic import (ListView, CreateView, TemplateView, )
@@ -31,7 +32,7 @@ class PostListView(ListView):
         return context
 
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     """Post create view with all model fields."""
 
     model = Post
@@ -71,7 +72,7 @@ class PostDetailView(DetailView):
 #     }
 #     return render(request, 'blog/post_detail.html', context)
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     template_name = 'blog/post_update.html'
     context_object_name = 'post'
@@ -81,7 +82,7 @@ class PostUpdateView(UpdateView):
         return reverse_lazy('blog:post-detail', kwargs={'pk': self.object.id})
 
 
-class PostDeleteView(DeleteView):
+class PostDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'blog/post_delete.html'
     success_url = reverse_lazy('blog:post-list')

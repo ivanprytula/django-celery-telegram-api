@@ -8,7 +8,7 @@
 
     <main>
         <div class="container pt-lg-5">
-            <div class="col-lg">
+            <div class="col-lg text-center">
 
                 <h1 class="display-4 mt-4">Hello, {{ user.email|default:'Guest' }}!</h1>
 
@@ -21,6 +21,7 @@
                             Only <strong>authorized</strong> users can add new post.
                         </p>
                     {% endif %}
+
                 </div>
 
                 <hr>
@@ -36,17 +37,24 @@
                 {% endif %}
 
                 {% for post in posts %}
-                    <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
-                    <p>By {{ post.author }}</p>
+                    <h2 class="display-6">
+                        <a class="link-primary" href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                    </h2>
+                    <p class="text-dark my-0">by {{ post.author }} | {{ post.created_at.date }}</p>
 
-                    {{ post.created_at.date }} |&nbsp;
-                    Categories:&nbsp;
-                    {% for category in post.categories.all %}
-                        <a href="{% url 'blog:post-category' category.name %}">
-                            {{ category.name }}
-                        </a>&nbsp;
-                    {% endfor %}
-                    <p>{{ post.content | slice:":100" }}...</p>
+                    <p class="text-info mb-3">
+                        Categories:
+                        {% for category in post.categories.all %}
+                            <a class="link-secondary" href="{% url 'blog:post-category' category.name %}">
+                                {{ category.name }}
+                            </a>
+                        {% endfor %}
+                    </p>
+
+
+
+
+                    <p>{{ post.content | slice:":500" }}...</p>
                 {% empty %}
                     <p>Sorry, no tweets were posted...</p>
                 {% endfor %}

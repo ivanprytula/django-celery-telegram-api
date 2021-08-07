@@ -1,5 +1,7 @@
 {% extends '__base.html' %}
 {% load static %}
+{% load widget_tweaks %}
+
 
 {% block custom_css %}
     <link rel="stylesheet" href="{% static 'base/css/login.css' %}">
@@ -16,11 +18,40 @@
 
                 <h1 class="h3 mb-4">Please log in</h1>
 
-                {{ form.as_p }}
+{#                {{ form.as_p }}#}
 
-                <button class="w-100 btn btn-lg btn-primary mt-4"
-                        type="submit">Log in
-                </button>
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    {% for hidden_field in form.hidden_fields %}
+                        {{ hidden_field }}
+                    {% endfor %}
+
+                    {% for field in form.visible_fields %}
+                        <div class="form-group">
+                            {{ field.label_tag }}
+
+                            {% if field.widget_type == 'checkbox' %}
+                                {% render_field field %}
+                            {% else %}
+                                {% render_field field class="form-control" %}
+                            {% endif %}
+
+                            {% if field.help_text %}
+                                <small class="form-text text-muted">{{ field.help_text }}</small>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+
+                    <button class="w-100 btn btn-lg btn-primary mt-4"
+                            type="submit">Log in
+                    </button>
+                </form>
+
+{#                                <button class="w-100 btn btn-lg btn-primary mt-4"#}
+{#                                        type="submit">Log in#}
+{#                                </button>#}
             </form>
         </div>
 
