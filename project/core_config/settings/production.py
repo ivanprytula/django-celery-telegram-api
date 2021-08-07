@@ -41,3 +41,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 #   'CacheControl': 'max-age=86400',
 # }
 # AWS_LOCATION = ''
+USER_INVITATION_SECRET = config('USER_INVITATION_SECRET')
