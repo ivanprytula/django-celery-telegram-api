@@ -21,10 +21,24 @@
                 </p>
 
                 {% if user.is_authenticated %}
-                    <p class="text-primary">
-                        <a class="btn btn-outline-secondary"
-                           href="{% url 'blog:post-update' post.pk %}">Edit post</a>
-                    </p>
+
+                    <div class="d-grid gap-2 d-md-block mt-4">
+
+                        <a class="btn btn-outline-secondary w-25"
+                           href="{% url 'blog:post-update' post.pk %}">
+                            Edit post
+                        </a>
+                        <a class="btn btn-outline-danger w-25"
+                           href="{% url 'blog:post-delete' post.pk %}">
+                            Delete post
+                        </a>
+
+                        <a class="btn btn-outline-primary w-25"
+                           href="{% url 'blog:post-list' %}">
+                            Back
+                        </a>
+                    </div>
+
                 {% endif %}
 
                 <p class="fs-3">{{ post.content }}</p>

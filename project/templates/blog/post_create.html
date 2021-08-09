@@ -38,7 +38,15 @@
                                 </div>
                             {% endfor %}
 
-                            <button type="submit" class="btn btn-success mt-4">Create</button>
+                            <div class="d-grid gap-2 d-md-block mt-4">
+                                <button class="btn btn-success" type="submit">Create</button>
+                                <input class="btn btn-warning" type="reset" value="Reset"
+                                       onClick="this.form.reset()"/>
+                                <a class="btn btn-primary "
+                                   href="{% url 'blog:post-list'%}"
+                                   role="button">Back</a>
+                            </div>
+
                         </form>
                     </div>
                 </div>
