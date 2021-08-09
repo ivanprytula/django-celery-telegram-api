@@ -2,40 +2,57 @@
 
 {% block content %}
 
-    <div class="col-md-8 offset-md-2">
-        <h1>{{ post.title }}</h1>
-        <p>By {{ post.author }}</p>
+    <main>
+        <div class="container">
+            <div class="col-md-8 offset-md-2">
+                <h1>{{ post.title }}</h1>
+                <p class="text-dark my-0">By {{ post.author }} | {{ post.created_at.date }}</p>
+                <p class="text-dark my-0">Date: {{ now|date }}</p>
+                <p class="text-muted">{{ some }}</p>
 
-        {{ post.created_at.date }} |&nbsp;
-                                   Categories:&nbsp;
-        {% for category in post.categories.all %}
-            <a href="{% url 'blog:post-category' category.name %}">
-                {{ category.name }}
-            </a>&nbsp;
-        {% endfor %}
-        <p>{{ post.content | linebreaks }}</p>
+                <p class="text-info mb-3 fs-4">
+                    Categories:
+                    {% for category in post.categories.all %}
+                        <a class="btn btn-link"
+                           href="{% url 'blog:post-category' category.name %}">
+                            {{ category.name }}
+                        </a>
+                    {% endfor %}
+                </p>
 
-        <h3>Leave a comment:</h3>
-        <form action="{{ post.get_absolute_url  }}" method="post">
-            {% csrf_token %}
-            <div class="form-group">
-                {{ form.author }}
+                {% if user.is_authenticated %}
+                    <p class="text-primary">
+                        <a class="btn btn-outline-secondary"
+                           href="{% url 'blog:post-update' post.pk %}">Edit post</a>
+                    </p>
+                {% endif %}
+
+                <p class="fs-3">{{ post.content }}</p>
+
+                <h4 class="text-info">Leave a comment:</h4>
+                <form action="{{ post.get_absolute_url }}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{ form.author }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.content }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+
+                <h5>Comments:</h5>
+                {% for comment in comments %}
+                    <p>
+                        On {{ comment.created_at.date }}&nbsp;
+                        <b>{{ comment.author }}</b> wrote:
+                    </p>
+                    <p>{{ comment.content }}</p>
+                    <hr>
+                {% endfor %}
+
             </div>
-            <div class="form-group">
-                {{ form.content }}
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+        </div>
+    </main>
 
-        <h3>Comments:</h3>
-        {% for comment in comments %}
-            <p>
-                On {{ comment.created_at.date }}&nbsp;
-                <b>{{ comment.author }}</b> wrote:
-            </p>
-            <p>{{ comment.content }}</p>
-            <hr>
-        {% endfor %}
-
-    </div>
 {% endblock %}

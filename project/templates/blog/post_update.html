@@ -1,15 +1,50 @@
 {% extends "__base.html" %}
+{% load widget_tweaks %}
+
 {% block content %}
-    <div class="card">
-        <div class="card-header">
-            <h5 class="card-title">Post Update #{{ post.id }}</h5>
+
+    <main>
+        <div class="container">
+            <div class="col-md-8 offset-md-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Post Update #{{ post.id }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+
+                            {% for hidden_field in form.hidden_fields %}
+                                {{ hidden_field }}
+                            {% endfor %}
+
+                            {% for field in form.visible_fields %}
+                                <div class="form-group">
+                                    {{ field.label_tag }}
+
+                                    {% if field.widget_type == 'checkbox' %}
+                                        {% render_field field %}
+                                    {% else %}
+                                        {% render_field field class="form-control" %}
+                                    {% endif %}
+
+                                    {% if field.help_text %}
+                                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+
+                            <button type="submit" class="btn btn-success mt-4">Update</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <div class="card-body">
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="btn btn-success">Update</button>
-            </form>
-        </div>
-    </div>
+    </main>
+
+
+
+
+
 {% endblock %}

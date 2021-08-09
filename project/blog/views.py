@@ -1,6 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.urls import reverse_lazy
+from django.utils import timezone
+from django.views.decorators.cache import never_cache
 from django.views.generic import (ListView, CreateView, TemplateView, )
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import (UpdateView, DeleteView, )
@@ -47,39 +49,46 @@ class PostDetailView(DetailView):
     model = Post
     template_name = 'blog/post_detail.html'
     context_object_name = 'post'
+    extra_context = {'some': 'here we can add extra context from DetailView'}
 
+    @never_cache
+    def dispatch(self, *args, **kwargs):
+        return super(PostDetailView, self).dispatch(*args, **kwargs)
 
-# def post_detail(request, pk):
-#     post = Post.objects.get(pk=pk)
-#
-#     # We create empty form when user visits a page
-#     form = CommentForm()
-#     if request.method == 'POST':
-#         form = CommentForm(request.POST)
-#         if form.is_valid():
-#             comment = Comment(
-#                 author=form.cleaned_data['author'],
-#                 content=form.cleaned_data['content'],
-#                 post=post
-#             )
-#             comment.save()
-#
-#     comments = Comment.objects.filter(post=post)
-#     context = {
-#         'post': post,
-#         'comments': comments,
-#         'form': form,
-#     }
-#     return render(request, 'blog/post_detail.html', context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        return context
+
+    # def post_detail(self, request, pk):
+    #     post = Post.objects.get(pk=pk)
+    #
+    #     # We create empty form when user visits a page
+    #     form = CommentForm()
+    #     if request.method == 'POST':
+    #         form = CommentForm(request.POST)
+    #         if form.is_valid():
+    #             comment = Comment(
+    #                 author=form.cleaned_data['author'],
+    #                 content=form.cleaned_data['content'],
+    #                 post=post
+    #             )
+    #             comment.save()
+    #
+    #     comments = Comment.objects.filter(post=post)
+    #     context = {
+    #         'post': post,
+    #         'comments': comments,
+    #         'form': form,
+    #     }
+    #     return render(request, 'blog/post_detail.html', context)
+
 
 class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     template_name = 'blog/post_update.html'
     context_object_name = 'post'
     fields = ('title', 'content', 'categories')
-
-    def get_success_url(self):
-        return reverse_lazy('blog:post-detail', kwargs={'pk': self.object.id})
 
 
 class PostDeleteView(LoginRequiredMixin, DeleteView):
