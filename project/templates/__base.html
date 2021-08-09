@@ -70,9 +70,16 @@
                         </li>
                     </ul>
 
-                    <form class="d-flex me-2">
-                        <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
-                        <button type="submit" class="btn btn-outline-info">Search</button>
+                    <form action="{% url 'blog:post-list' %}"
+                            class="d-flex me-2"
+                          method="get">
+                        <input class="form-control me-2"
+                               name="q"
+                               type="search"
+                               placeholder="Search..."
+                               aria-label="Search">
+                        <button type="submit"
+                                class="btn btn-outline-info">Search</button>
                     </form>
 
                     <div class="d-flex">
