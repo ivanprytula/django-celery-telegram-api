@@ -23,7 +23,9 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('blog/create/', PostCreateView.as_view(), name='post-create'),
     path('blog/<slug:slug>/', PostDetailView.as_view(), name='post-detail'),
-    path('<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),
-    path('<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
+    path('blog/<int:pk>/update/', PostUpdateView.as_view(),
+         name='post-update'),
+    path('blog/<int:pk>/delete/', PostDeleteView.as_view(),
+         name='post-delete'),
     path('tags/<category>/', BlogCategory.as_view(), name='post-category'),
 ]

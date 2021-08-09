@@ -51,10 +51,14 @@
                         {% endfor %}
                     </p>
 
+                    {% if user.is_authenticated %}
+                        <p class="text-primary">
+                            <a class="btn btn-outline-secondary"
+                               href="{% url 'blog:post-update' post.pk %}">Edit post</a>
+                        </p>
+                    {% endif %}
 
-
-
-                    <p>{{ post.content | slice:":500" }}...</p>
+                    <p class="fs-4">{{ post.content | slice:":500" }}...</p>
                 {% empty %}
                     <p>Sorry, no tweets were posted...</p>
                 {% endfor %}
