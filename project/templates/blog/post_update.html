@@ -34,7 +34,18 @@
                                 </div>
                             {% endfor %}
 
-                            <button type="submit" class="btn btn-success mt-4">Update</button>
+
+                            <div class="d-grid gap-2 d-md-block mt-4">
+                                <button type="submit"
+                                        class="btn btn-success">
+                                    Update
+                                </button>
+                                <a class="btn btn-outline-primary"
+                                   href="{% url 'blog:post-list' %}">
+                                    Back
+                                </a>
+                            </div>
+
                         </form>
                     </div>
                 </div>

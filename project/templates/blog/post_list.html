@@ -54,7 +54,13 @@
                     {% if user.is_authenticated %}
                         <p class="text-primary">
                             <a class="btn btn-outline-secondary"
-                               href="{% url 'blog:post-update' post.pk %}">Edit post</a>
+                               href="{% url 'blog:post-update' post.pk %}">
+                                Edit post
+                            </a>
+                            <a class="btn btn-outline-danger"
+                               href="{% url 'blog:post-delete' post.pk %}">
+                                Delete post
+                            </a>
                         </p>
                     {% endif %}
 
