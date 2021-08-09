@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Q
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.decorators.cache import never_cache
@@ -17,6 +18,17 @@ class PostListView(ListView):
     template_name = 'blog/post_list.html'
     context_object_name = 'posts'
     paginate_by = 5
+
+    def get_queryset(self):
+        query = self.request.GET.get('q', '')
+        search_fields = ['title', 'content', 'categories__name']
+        object_list = Post.objects.filter(
+            Q(title__icontains=query) |
+            Q(content__icontains=query) |
+            Q(categories__name__icontains=query)
+        ).order_by(*search_fields).distinct(*search_fields)
+
+        return object_list
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
