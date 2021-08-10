@@ -13,6 +13,14 @@ class PostAdmin(admin.ModelAdmin):
 
 class CommentAdmin(admin.ModelAdmin):
     """Comment model for Django administration."""
+    list_display = ('commenter_name', 'content', 'post', 'created_at',
+                    'active')
+    list_filter = ('active', 'created_at')
+    search_fields = ('commenter_name', 'author', 'content')
+    actions = ['approve_comments']
+
+    def approve_comments(self, request, queryset):
+        queryset.update(active=True)
 
 
 class CategoryAdmin(admin.ModelAdmin):
