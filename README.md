@@ -60,7 +60,7 @@ Bot's username: DjCeleryPosts_Bot
 # <a id="project-setup">Project setup</a>
 
 ## <a id="project-setup-local">Dev/local</a>
-Clone the repo. It's easy.  
+Clone the repo. It's easy.
 Next. In root directory...
 
 ### docker-compose way: build and run multi-container applications.

@@ -1,12 +1,19 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.core.paginator import EmptyPage
+from django.core.paginator import PageNotAnInteger
+from django.core.paginator import Paginator
 from django.db.models import Q
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse
+from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.decorators.cache import never_cache
-from django.views.generic import (ListView, CreateView, TemplateView, )
+from django.views.generic import CreateView
+from django.views.generic import ListView
+from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import (UpdateView, DeleteView, FormMixin, )
+from django.views.generic.edit import DeleteView
+from django.views.generic.edit import FormMixin
+from django.views.generic.edit import UpdateView
 
 from blog.forms import CommentForm
 from blog.models import Post

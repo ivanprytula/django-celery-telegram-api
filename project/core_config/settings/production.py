@@ -9,7 +9,8 @@ import os
 from pathlib import Path
 
 import dj_database_url
-from decouple import Csv, AutoConfig
+from decouple import AutoConfig
+from decouple import Csv
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 ENV_BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent

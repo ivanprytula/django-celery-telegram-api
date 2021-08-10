@@ -1,13 +1,14 @@
-from django.urls import path, include
+from django.urls import include
+from django.urls import path
 
-from .sandbox_views import (
-    see_request,
-    user_info,
-    private_place,
-    staff_place,
-    add_messages,
-)
-from .views import (AboutPageView, LinksDepotView, MindMapView)
+from .sandbox_views import add_messages
+from .sandbox_views import private_place
+from .sandbox_views import see_request
+from .sandbox_views import staff_place
+from .sandbox_views import user_info
+from .views import AboutPageView
+from .views import LinksDepotView
+from .views import MindMapView
 
 app_name = 'pages'
 
