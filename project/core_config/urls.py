@@ -20,6 +20,11 @@ from django.urls import path, include
 
 from upload.views import image_upload
 
+admin.site.site_header = 'Johnny Blog Admin'
+admin.site.site_title = 'Johnny Blog Admin Panel'
+admin.site.index_title = 'Welcome to Johnny Blog Admin Panel'
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),

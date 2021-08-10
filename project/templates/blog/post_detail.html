@@ -1,4 +1,5 @@
 {% extends '__base.html' %}
+{% load str_to_lowercase %}
 
 {% block content %}
 
@@ -8,7 +9,7 @@
                 <h1>{{ post.title }}</h1>
                 <p class="text-dark my-0">By {{ post.author }} | {{ post.created_at.date }}</p>
                 <p class="text-dark my-0">Date: {{ now|date }}</p>
-                <p class="text-muted">{{ some }}</p>
+                <p class="text-muted">{{ some|str_to_lowercase }}</p>
 
                 <p class="text-info mb-3 fs-4">
                     Categories:
@@ -44,8 +45,11 @@
                 <p class="fs-3">{{ post.content }}</p>
 
                 <h4 class="text-info">Leave a comment:</h4>
-                <form action="{{ post.get_absolute_url }}" method="post">
+                <form action="{% url 'blog:post-detail' post.slug %}" method="post">
                     {% csrf_token %}
+                    <div class="form-group">
+                        {{ form.commenter_name }}
+                    </div>
                     <div class="form-group">
                         {{ form.author }}
                     </div>
@@ -55,14 +59,21 @@
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
 
-                <h5>Comments:</h5>
+                <h5 class="display-6">Comments:</h5>
+                <hr>
+
+                {% if post.count_comments_under_moderation %}
+                    <p class="fst-italic"><b>{{ post.count_comments_under_moderation }}</b>
+                        {{ post.comments.first.get_model_name|lower }}{{ post.comments_under_moderation|pluralize }}
+                        under
+                        moderation.</p>
+                {% endif %}
+
                 {% for comment in comments %}
                     <p>
-                        On {{ comment.created_at.date }}&nbsp;
-                        <b>{{ comment.author }}</b> wrote:
+                        On {{ comment.created_at.date }} <b>{{ comment.commenter_name }}</b> wrote:
                     </p>
                     <p>{{ comment.content }}</p>
-                    <hr>
                 {% endfor %}
 
             </div>
