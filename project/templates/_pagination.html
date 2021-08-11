@@ -1,55 +1,58 @@
 <nav aria-label="navigation">
-    <ul class="pagination pagination-lg justify-content-end mb-0">
-        {% if page_obj.has_previous %}
-            <li class="page-item">
-                <a class="page-link"
-                   href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
-                    <i class="fas fa-angle-left"></i>
-                    <span class="">Previous</span>
-                </a>
-            </li>
-        {% else %}
-            <li class="page-item disabled">
-                <a class="page-link" href="#">
-                    <i class="fas fa-angle-left"></i>
-                    <span class="">Previous</span>
-                </a>
-            </li>
-        {% endif %}
+  <ul class="pagination pagination-lg justify-content-end mb-0">
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link"
+           href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+          <i class="fas fa-angle-left"></i>
+          <span class="">Previous</span>
+        </a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <a class="page-link" href="#">
+          <i class="fas fa-angle-left"></i>
+          <span class="">Previous</span>
+        </a>
+      </li>
+    {% endif %}
 
-        {% for i in page_obj.paginator.page_range %}
-            {% if page_obj.number == i %}
-                <li class="page-item active">
-                    <a class="page-link" href="?page={{ i }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ page_obj.number }}</a>
-                </li>
-            {% elif i > page_obj.number|add:'-5' and i < page_obj.number|add:'5' %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ i }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ i }}</a>
-                </li>
-            {% endif %}
-        {% endfor %}
+    {% for i in page_obj.paginator.page_range %}
+      {% if page_obj.number == i %}
+        <li class="page-item active">
+          <a class="page-link"
+             href="?page={{ i }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ page_obj.number }}</a>
+        </li>
+      {% elif i > page_obj.number|add:'-5' and i < page_obj.number|add:'5' %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ i }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ i }}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
 
-        {% if page_obj.paginator.num_pages > page_obj.number|add:'4' %}
-            <li><a class="page-link" href="?page={{ page_obj.number|add:'5' }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">&hellip;</a></li>
-        {% endif %}
+    {% if page_obj.paginator.num_pages > page_obj.number|add:'4' %}
+      <li><a class="page-link" href="?page=
+        {{ page_obj.number|add:'5' }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">&hellip;</a></li>
+    {% endif %}
 
-        {% if page_obj.has_next %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
-                    <i class="fas fa-angle-right"></i>
-                    <span class="">Next</span>
-                </a>
-            </li>
-        {% else %}
-            <li class="page-item disabled">
-                <a class="page-link" href="#">
-                    <i class="fas fa-angle-right"></i>
-                    <span class="">Next</span>
-                </a>
-            </li>
-        {% endif %}
-    </ul>
-    <p class="text-muted text-end">
-        <em>Total posts: {{ page_obj.paginator.count }}</em>
-    </p>
+    {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link"
+           href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+          <i class="fas fa-angle-right"></i>
+          <span class="">Next</span>
+        </a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <a class="page-link" href="#">
+          <i class="fas fa-angle-right"></i>
+          <span class="">Next</span>
+        </a>
+      </li>
+    {% endif %}
+  </ul>
+  <p class="text-muted text-end">
+    <em>Total posts: {{ page_obj.paginator.count }}</em>
+  </p>
 </nav>

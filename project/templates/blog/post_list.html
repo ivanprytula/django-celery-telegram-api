@@ -6,76 +6,76 @@
 
 {% block content %}
 
-    <main>
-        <div class="container pt-lg-5">
-            <div class="col-lg text-center">
+  <main>
+    <div class="container pt-lg-5">
+      <div class="col-lg text-center">
 
-                <h1 class="display-4 mt-4">Hello, {{ user.email|default:'Guest' }}!</h1>
+        <h1 class="display-4 mt-4">Hello, {{ user.email|default:'Guest' }}!</h1>
 
-                <div>
-                    {% if user.is_authenticated %}
-                        <a class="btn btn-primary btn-lg"
-                           href="{% url 'blog:post-create' %}">Add new post</a>
-                    {% else %}
-                        <p>
-                            Only <strong>authorized</strong> users can add new post.
-                        </p>
-                    {% endif %}
-
-                </div>
-
-                <hr>
-
-                {% if messages %}
-                    <ul class="messages" style="background-color:#ccc;">
-                        {% for message in messages %}
-                            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
-                                {{ message }}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-
-                {% for post in posts %}
-                    <h2 class="display-6">
-                        <a class="link-primary" href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-                    </h2>
-                    <p class="text-dark my-0">by {{ post.author }} | {{ post.created_at.date }}</p>
-
-                    <p class="text-info mb-3">
-                        Categories:
-                        {% for category in post.categories.all %}
-                            <a class="link-secondary" href="{% url 'blog:post-category' category.name %}">
-                                {{ category.name }}
-                            </a>
-                        {% endfor %}
-                    </p>
-
-                    {% if user.is_authenticated %}
-                        <p class="text-primary">
-                            <a class="btn btn-outline-secondary"
-                               href="{% url 'blog:post-update' post.pk %}">
-                                Edit post
-                            </a>
-                            <a class="btn btn-outline-danger"
-                               href="{% url 'blog:post-delete' post.pk %}">
-                                Delete post
-                            </a>
-                        </p>
-                    {% endif %}
-
-                    <p class="fs-4">{{ post.content | slice:":500" }}...</p>
-                {% empty %}
-                    <p>Sorry, no tweets were posted...</p>
-                {% endfor %}
-
-            </div>
-
-            {% if is_paginated %}
-                {% include "_pagination.html" %}
-            {% endif %}
+        <div>
+          {% if user.is_authenticated %}
+            <a class="btn btn-primary btn-lg"
+               href="{% url 'blog:post-create' %}">Add new post</a>
+          {% else %}
+            <p>
+              Only <strong>authorized</strong> users can add new post.
+            </p>
+          {% endif %}
 
         </div>
-    </main>
+
+        <hr>
+
+        {% if messages %}
+          <ul class="messages" style="background-color:#ccc;">
+            {% for message in messages %}
+              <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                {{ message }}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        {% for post in posts %}
+          <h2 class="display-6">
+            <a class="link-primary" href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+          </h2>
+          <p class="text-dark my-0">by {{ post.author }} | {{ post.created_at.date }}</p>
+
+          <p class="text-info mb-3">
+            Categories:
+            {% for category in post.categories.all %}
+              <a class="link-secondary" href="{% url 'blog:post-category' category.name %}">
+                {{ category.name }}
+              </a>
+            {% endfor %}
+          </p>
+
+          {% if user.is_authenticated %}
+            <p class="text-primary">
+              <a class="btn btn-outline-secondary"
+                 href="{% url 'blog:post-update' post.pk %}">
+                Edit post
+              </a>
+              <a class="btn btn-outline-danger"
+                 href="{% url 'blog:post-delete' post.pk %}">
+                Delete post
+              </a>
+            </p>
+          {% endif %}
+
+          <p class="fs-4">{{ post.content | slice:":500" }}...</p>
+        {% empty %}
+          <p>Sorry, no tweets were posted...</p>
+        {% endfor %}
+
+      </div>
+
+      {% if is_paginated %}
+        {% include "_pagination.html" %}
+      {% endif %}
+
+    </div>
+  </main>
 
 {% endblock %}

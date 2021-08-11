@@ -1,38 +1,38 @@
 {% extends "__base.html" %}
 {% block content %}
 
-    <main>
-        <div class="container">
-            <div class="col-md-8 offset-md-2">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">Delete Post #{{ post.id }}</h5>
-                    </div>
-                    <div class="card-body">
-                        <form method="post">
-                            {% csrf_token %}
-                            <div class="alert alert-warning" role="alert">
-                                Are you sure you want to delete <strong>{{ post.title }}</strong> ?
-                            </div>
+  <main>
+    <div class="container">
+      <div class="col-md-8 offset-md-2">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title">Delete Post #{{ post.id }}</h5>
+          </div>
+          <div class="card-body">
+            <form method="post">
+              {% csrf_token %}
+              <div class="alert alert-warning" role="alert">
+                Are you sure you want to delete <strong>{{ post.title }}</strong> ?
+              </div>
 
 
-                            <div class="d-grid gap-2 d-md-block mt-4">
-                                <button type="submit"
-                                        class="btn btn-danger">
-                                    Delete
-                                </button>
+              <div class="d-grid gap-2 d-md-block mt-4">
+                <button type="submit"
+                        class="btn btn-danger">
+                  Delete
+                </button>
 
-                                <a class="btn btn-outline-primary"
-                                   href="{{ request.META.HTTP_REFERER }}">
-                                    Back
-                                </a>
-                            </div>
+                <a class="btn btn-outline-primary"
+                   href="{{ request.META.HTTP_REFERER }}">
+                  Back
+                </a>
+              </div>
 
-                        </form>
-                    </div>
-                </div>
-            </div>
+            </form>
+          </div>
         </div>
-    </main>
+      </div>
+    </div>
+  </main>
 
 {% endblock %}
