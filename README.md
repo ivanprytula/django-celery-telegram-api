@@ -28,6 +28,9 @@ cat /etc/*-release
 
 # After new package was installed >> turn off VPN (if any) >> rebuild image
 
+pylint --ignore=migrations --load-plugins=pylint_django --django-settings-module=core_config.settings project/
+flake8 project/
+
 ```
 
 ---
