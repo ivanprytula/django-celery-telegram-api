@@ -1,9 +1,12 @@
 """
-Main idea of such configuration is to use default "python manage.py runserver"
-in 'production mode by default' (BUT on local machine) without need of
-changing manage.py
+1. If we want to run project locally with default db.sqlite3 >>
+>> comment out DATABASE_URL variable in deploy/dev/.env
 
-If you have development.py then try/except will handle settings "swapping"
+2. We can use SQLite or PostgreSQL to run tests.
+    - If PostgreSQL >> run tests as usual
+    - If SQLite:
+        1. export ENV_ROLE="testing"
+        2. review core_config/settings/testing.py for details.
 """
 import importlib
 import os

@@ -30,6 +30,7 @@ cat /etc/*-release
 
 pylint --ignore=migrations --load-plugins=pylint_django --django-settings-module=core_config.settings project/
 flake8 project/
+python -Wa manage.py test
 
 ```
 
