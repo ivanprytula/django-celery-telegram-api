@@ -7,10 +7,6 @@
 4. [TODOs](#to-dos)
 
 
-The Zen of Python, by Tim Peters:
-> _Beautiful is better than ugly._
-
-
 ---
 **Handy commands:**
 
@@ -32,6 +28,11 @@ pylint --ignore=migrations --load-plugins=pylint_django --django-settings-module
 flake8 project/
 python -Wa manage.py test
 
+python3.9 -m webbrowser -t "https://www.python.org"
+```
+```python
+import keyword
+print(keyword.kwlist)
 ```
 
 ---

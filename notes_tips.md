@@ -33,3 +33,11 @@ tty: true
 2. Re-run containers/services
 3. docker attach <container_id_of_django_posts_to_telegram_web>
 4. You can interact with container's stdin/stdout/stderr, i.e. with (Pdb).
+
+
+## English in IT area
+1. Emphasis on **functional** language, constant expressions that customers use in the work environment.
+2. Phrases like "could you be so kind", "I was wondering if you could", more "please" and "thank you" will help make English more polite.
+3. Objectives in the ability to **communicate** effectively. Therefore, it is important to emphasize the development of **listening** skills.
+4. Certificates of English - IELTS, TOEFL, FCE, CPE - adequate tests. It's good to have them valid/"fresh".
+5. Adequate evaluation of English level - speaking, writing, listening and reading.
