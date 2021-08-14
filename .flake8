@@ -9,7 +9,8 @@ ignore =
     T001,
     S101,
     F401,
-    F403
+    F403,
+    W503
 exclude =
     # No need to traverse our git directory
     .git,
@@ -19,7 +20,7 @@ exclude =
     .idea,
     **/migrations
 max-complexity = 10
-max-line-length = 100
+max-line-length = 119
 # Ignore non PEP 8 compliant rules as suggested by black
 extend-ignore =
     E203,  # https://github.com/psf/black/blob/master/docs/the_black_code_style.md#slices

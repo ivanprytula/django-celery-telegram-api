@@ -13,6 +13,10 @@ project/.env
 __pycache__/
 *.py[cod]
 
+# Unit test / coverage reports
+htmlcov/
+.coverage
+
 # Django stuff:
 */db.sqlite3
 */staticfiles

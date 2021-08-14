@@ -4,55 +4,55 @@
 {% block title %}Add post{% endblock %}
 
 {% block content %}
-    <main>
-        <div class="container">
-            <div class="col-lg-6 col-md-6 col-sm-6 offset-3">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">Create a New Post</h5>
-                    </div>
+  <main>
+    <div class="container">
+      <div class="col-lg-6 col-md-6 col-sm-6 offset-3">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title">Create a New Post</h5>
+          </div>
 
-                    <div class="card-body">
-                        <h6 class="text-danger">All fields are required</h6>
+          <div class="card-body">
+            <h6 class="text-danger">All fields are required</h6>
 
-                        <form method="post">
-                            {% csrf_token %}
+            <form method="post">
+              {% csrf_token %}
 
-                            {% for hidden_field in form.hidden_fields %}
-                                {{ hidden_field }}
-                            {% endfor %}
+              {% for hidden_field in form.hidden_fields %}
+                {{ hidden_field }}
+              {% endfor %}
 
-                            {% for field in form.visible_fields %}
-                                <div class="form-group">
-                                    {{ field.label_tag }}
+              {% for field in form.visible_fields %}
+                <div class="form-group">
+                  {{ field.label_tag }}
 
-                                    {% if field.widget_type == 'checkbox' %}
-                                        {% render_field field %}
-                                    {% else %}
-                                        {% render_field field class="form-control" %}
-                                    {% endif %}
+                  {% if field.widget_type == 'checkbox' %}
+                    {% render_field field %}
+                  {% else %}
+                    {% render_field field class="form-control" %}
+                  {% endif %}
 
-                                    {% if field.help_text %}
-                                        <small class="form-text text-muted">{{ field.help_text }}</small>
-                                    {% endif %}
-                                </div>
-                            {% endfor %}
-
-                            <div class="d-grid gap-2 d-md-block mt-4">
-                                <button class="btn btn-success" type="submit">Create</button>
-                                <input class="btn btn-warning" type="reset" value="Reset"
-                                       onClick="this.form.reset()"/>
-                                <a class="btn btn-primary "
-                                   href="{% url 'blog:post-list'%}"
-                                   role="button">Back</a>
-                            </div>
-
-                        </form>
-                    </div>
+                  {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                  {% endif %}
                 </div>
-            </div>
-        </div>
+              {% endfor %}
 
-    </main>
+              <div class="d-grid gap-2 d-md-block mt-4">
+                <button class="btn btn-success" type="submit">Create</button>
+                <input class="btn btn-warning" type="reset" value="Reset"
+                       onClick="this.form.reset()"/>
+                <a class="btn btn-primary "
+                   href="{% url 'blog:post-list' %}"
+                   role="button">Back</a>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
 
 {% endblock %}

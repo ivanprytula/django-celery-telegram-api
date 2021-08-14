@@ -2,105 +2,106 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
 <head>
-    <!-- Required meta tags -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Blog about mastering Python">
-    <meta name="author" content="Ivan Prytula">
-    {% block meta_tags %}{% endblock %}
+  <!-- Required meta tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Blog about mastering Python">
+  <meta name="author" content="Ivan Prytula">
+  {% block meta_tags %}{% endblock %}
 
-    <!-- Bootstrap CSS -->
-    {% block css %}
-        <!-- CSS only -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-              integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-              crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    {% endblock %}
+  <!-- Bootstrap CSS -->
+  {% block css %}
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  {% endblock %}
 
-    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+  <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
 
-    {% block custom_css %}
-        <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
-        <link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
-    {% endblock %}
+  {% block custom_css %}
+    <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
+  {% endblock %}
 
-    <title>{% block title %}Demo blog app{% endblock %}</title>
+  <title>{% block title %}Demo blog app{% endblock %}</title>
 
 </head>
 
 <body class="d-flex flex-column h-100 text-center">
 
 {% block navbar %}
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{% url 'blog:post-list' %}">
-                    <i class="bi bi-columns"></i>
-                    PyNotes
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'blog:post-list' %}">
+          <i class="bi bi-columns"></i>
+          PyNotes
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-                <div class="collapse navbar-collapse justify-content-between " id="navbarSupportedContent">
-                    <ul class="navbar-nav mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link"
-                               aria-current="page"
-                               href="{% url 'blog:post-list' %}">blog = list()</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'pages:links-depot' %}">links_depot</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'pages:python-mind-map' %}">py_mind_map</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                               data-bs-toggle="dropdown" aria-expanded="false">
-                                more
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="{% url 'pages:about' %}">about</a></li>
-                                <li><a class="dropdown-item text-muted disabled" href="#">Another action</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+        <div class="collapse navbar-collapse justify-content-between " id="navbarSupportedContent">
+          <ul class="navbar-nav mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link"
+                 aria-current="page"
+                 href="{% url 'blog:post-list' %}">blog = list()</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'pages:links-depot' %}">links_depot</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'pages:python-mind-map' %}">py_mind_map</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                 data-bs-toggle="dropdown" aria-expanded="false">
+                more
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{% url 'pages:about' %}">about</a></li>
+                <li><a class="dropdown-item text-muted disabled" href="#">Another action</a></li>
+              </ul>
+            </li>
+          </ul>
 
-                    <form action="{% url 'blog:post-list' %}"
-                            class="d-flex me-2"
-                          method="get">
-                        <input class="form-control me-2"
-                               name="q"
-                               type="search"
-                               placeholder="Search..."
-                               aria-label="Search">
-                        <button type="submit"
-                                class="btn btn-outline-info">Search</button>
-                    </form>
+          <form action="{% url 'blog:post-list' %}"
+                class="d-flex me-2"
+                method="get">
+            <input class="form-control me-2"
+                   name="q"
+                   type="search"
+                   placeholder="Search..."
+                   aria-label="Search">
+            <button type="submit"
+                    class="btn btn-outline-info">Search
+            </button>
+          </form>
 
-                    <div class="d-flex">
-                        {% if user.is_authenticated %}
-                            <a href="{% url 'logout' %}"
-                               class="btn btn-outline-secondary me-2">Log Out</a>
-                            <a href="{% url 'password_change' %}"
-                               class="btn btn-outline-warning">chpasswd</a>
-                        {% elif invitation_secret in request.GET.dict %}
-                            <a href="{% url 'login' %}"
-                               class="btn btn-outline-primary me-2">Login</a>
-                            <a href="{% url 'accounts:signup' %}"
-                               class="btn btn-outline-light me-2">Sign Up</a>
-                            <a href="{% url 'password_reset' %}"
-                               class="btn btn-outline-danger">sudo passwd</a>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>
+          <div class="d-flex">
+            {% if user.is_authenticated %}
+              <a href="{% url 'logout' %}"
+                 class="btn btn-outline-secondary me-2">Log Out</a>
+              <a href="{% url 'password_change' %}"
+                 class="btn btn-outline-warning">chpasswd</a>
+            {% elif invitation_secret in request.GET.dict %}
+              <a href="{% url 'login' %}"
+                 class="btn btn-outline-primary me-2">Login</a>
+              <a href="{% url 'accounts:signup' %}"
+                 class="btn btn-outline-light me-2">Sign Up</a>
+              <a href="{% url 'password_reset' %}"
+                 class="btn btn-outline-danger">sudo passwd</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
 {% endblock %}
 
 <!-- Begin page content -->
@@ -108,21 +109,21 @@
 
 <!-- Footer -->
 <footer class="footer mt-auto py-3 bg-grey">
-    <div class="container">
-        <p class="m-0 text-muted text-center ">&copy; Copyright 2021 Ivan Prytula </p>
-    </div>
+  <div class="container">
+    <p class="m-0 text-muted text-center ">&copy; Copyright 2021 Ivan Prytula </p>
+  </div>
 </footer>
 
 {% block js %}
-    <script src="https://code.jquery.com/jquery-3.6.0.js"
-            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-            crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"
+          integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+          crossorigin="anonymous"></script>
 {% endblock %}
 
 {% block custom_js %}
-    <script src="{% static 'base/scripts/navs_switch_active.js' %}"></script>
+  <script src="{% static 'base/scripts/navs_switch_active.js' %}"></script>
 {% endblock %}
 
 </body>

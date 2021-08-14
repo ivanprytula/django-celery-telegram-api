@@ -31,9 +31,9 @@ class PostListView(ListView):
         query = self.request.GET.get('q', '')
         search_fields = ['title', 'content', 'categories__name']
         object_list = Post.objects.filter(
-            Q(title__icontains=query) |
-            Q(content__icontains=query) |
-            Q(categories__name__icontains=query)
+            Q(title__icontains=query)
+            | Q(content__icontains=query)
+            | Q(categories__name__icontains=query)
         ).order_by(*search_fields).distinct(*search_fields)
 
         return object_list
@@ -72,9 +72,13 @@ class PostDetailView(FormMixin, DetailView):
     form_class = CommentForm
     extra_context = {'some': 'here we can add extra context from DetailView'}
 
+    def __init__(self):
+        super().__init__()
+        self.object = None
+
     @never_cache
     def dispatch(self, *args, **kwargs):
-        return super(PostDetailView, self).dispatch(*args, **kwargs)
+        return super().dispatch(*args, **kwargs)
 
     def get_success_url(self):
         return reverse('blog:post-detail', kwargs={'slug': self.object.slug})
@@ -91,8 +95,8 @@ class PostDetailView(FormMixin, DetailView):
         form = self.get_form()
         if form.is_valid():
             return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
+
+        return self.form_invalid(form)
 
     def form_valid(self, form):
         # Create Comment object but don't save to database yet

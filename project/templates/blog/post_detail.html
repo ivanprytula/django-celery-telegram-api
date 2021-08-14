@@ -3,81 +3,81 @@
 
 {% block content %}
 
-    <main>
-        <div class="container">
-            <div class="col-md-8 offset-md-2">
-                <h1>{{ post.title }}</h1>
-                <p class="text-dark my-0">By {{ post.author }} | {{ post.created_at.date }}</p>
-                <p class="text-dark my-0">Date: {{ now|date }}</p>
-                <p class="text-muted">{{ some|str_to_lowercase }}</p>
+  <main>
+    <div class="container">
+      <div class="col-md-8 offset-md-2">
+        <h1>{{ post.title }}</h1>
+        <p class="text-dark my-0">By {{ post.author }} | {{ post.created_at.date }}</p>
+        <p class="text-dark my-0">Date: {{ now|date }}</p>
+        <p class="text-muted">{{ some|str_to_lowercase }}</p>
 
-                <p class="text-info mb-3 fs-4">
-                    Categories:
-                    {% for category in post.categories.all %}
-                        <a class="btn btn-link"
-                           href="{% url 'blog:post-category' category.name %}">
-                            {{ category.name }}
-                        </a>
-                    {% endfor %}
-                </p>
+        <p class="text-info mb-3 fs-4">
+          Categories:
+          {% for category in post.categories.all %}
+            <a class="btn btn-link"
+               href="{% url 'blog:post-category' category.name %}">
+              {{ category.name }}
+            </a>
+          {% endfor %}
+        </p>
 
-                {% if user.is_authenticated %}
+        {% if user.is_authenticated %}
 
-                    <div class="d-grid gap-2 d-md-block mt-4">
+          <div class="d-grid gap-2 d-md-block mt-4">
 
-                        <a class="btn btn-outline-secondary w-25"
-                           href="{% url 'blog:post-update' post.pk %}">
-                            Edit post
-                        </a>
-                        <a class="btn btn-outline-danger w-25"
-                           href="{% url 'blog:post-delete' post.pk %}">
-                            Delete post
-                        </a>
+            <a class="btn btn-outline-secondary w-25"
+               href="{% url 'blog:post-update' post.pk %}">
+              Edit post
+            </a>
+            <a class="btn btn-outline-danger w-25"
+               href="{% url 'blog:post-delete' post.pk %}">
+              Delete post
+            </a>
 
-                        <a class="btn btn-outline-primary w-25"
-                           href="{% url 'blog:post-list' %}">
-                            Back
-                        </a>
-                    </div>
+            <a class="btn btn-outline-primary w-25"
+               href="{% url 'blog:post-list' %}">
+              Back
+            </a>
+          </div>
 
-                {% endif %}
+        {% endif %}
 
-                <p class="fs-3">{{ post.content }}</p>
+        <p class="fs-3">{{ post.content }}</p>
 
-                <h4 class="text-info">Leave a comment:</h4>
-                <form action="{% url 'blog:post-detail' post.slug %}" method="post">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        {{ form.commenter_name }}
-                    </div>
-                    <div class="form-group">
-                        {{ form.author }}
-                    </div>
-                    <div class="form-group">
-                        {{ form.content }}
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+        <h4 class="text-info">Leave a comment:</h4>
+        <form action="{% url 'blog:post-detail' post.slug %}" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            {{ form.commenter_name }}
+          </div>
+          <div class="form-group">
+            {{ form.author }}
+          </div>
+          <div class="form-group">
+            {{ form.content }}
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
 
-                <h5 class="display-6">Comments:</h5>
-                <hr>
+        <h5 class="display-6">Comments:</h5>
+        <hr>
 
-                {% if post.count_comments_under_moderation %}
-                    <p class="fst-italic"><b>{{ post.count_comments_under_moderation }}</b>
-                        {{ post.comments.first.get_model_name|lower }}{{ post.comments_under_moderation|pluralize }}
-                        under
-                        moderation.</p>
-                {% endif %}
+        {% if post.count_comments_under_moderation %}
+          <p class="fst-italic"><b>{{ post.count_comments_under_moderation }}</b>
+            {{ post.comments.first.get_model_name|lower }}{{ post.comments_under_moderation|pluralize }}
+            under
+            moderation.</p>
+        {% endif %}
 
-                {% for comment in comments %}
-                    <p>
-                        On {{ comment.created_at.date }} <b>{{ comment.commenter_name }}</b> wrote:
-                    </p>
-                    <p>{{ comment.content }}</p>
-                {% endfor %}
+        {% for comment in comments %}
+          <p>
+            On {{ comment.created_at.date }} <b>{{ comment.commenter_name }}</b> wrote:
+          </p>
+          <p>{{ comment.content }}</p>
+        {% endfor %}
 
-            </div>
-        </div>
-    </main>
+      </div>
+    </div>
+  </main>
 
 {% endblock %}

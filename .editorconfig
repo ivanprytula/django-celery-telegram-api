@@ -1,0 +1,22 @@
+root = true
+
+[{*.py,*.pyw}]
+charset = utf-8
+max_line_length = 119
+indent_style = space
+tab_width = 4
+indent_size = 4
+end_of_line = lf
+insert_final_newline = true
+
+[*.html]
+tab_width = 2
+indent_size = 2
+max_line_length = 120
+
+[{*.bash,*.sh,*.zsh}]
+indent_size = 2
+tab_width = 2
+
+[{*.yaml,*.yml}]
+indent_size = 2
