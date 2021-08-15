@@ -29,6 +29,7 @@ flake8 project/
 python -Wa manage.py test
 
 python3.9 -m webbrowser -t "https://www.python.org"
+coverage run --source='.' manage.py test accounts/ -v 3
 ```
 ```python
 import keyword
