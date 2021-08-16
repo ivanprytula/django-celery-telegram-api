@@ -10,18 +10,8 @@ logger = get_task_logger(__name__)
 
 
 @shared_task
-def add(x_var, y_var):
-    return x_var + y_var
-
-
-@shared_task
 def sample_task():
     logger.info("^^^ The sample task just ran. ^^^")
-
-
-@shared_task
-def print_hello_every_1_min():
-    print('Hello from periodic task by Celery beat___')
 
 
 @shared_task

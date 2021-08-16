@@ -20,7 +20,7 @@ from blog.models import Post
 
 
 class PostListView(ListView):
-    """Blog blog home page view with pagination."""
+    """Blog home page view with pagination."""
 
     model = Post
     template_name = 'blog/post_list.html'
@@ -30,12 +30,15 @@ class PostListView(ListView):
     def get_queryset(self):
         query = self.request.GET.get('q', '')
         search_fields = ['title', 'content', 'categories__name']
-        object_list = Post.objects.filter(
-            Q(title__icontains=query)
-            | Q(content__icontains=query)
-            | Q(categories__name__icontains=query)
-        ).order_by(*search_fields).distinct(*search_fields)
 
+        if query:
+            object_list = Post.objects.filter(
+                Q(title__icontains=query)
+                | Q(content__icontains=query)
+                | Q(categories__name__icontains=query)
+            ).order_by(*search_fields).distinct(*search_fields)
+        else:
+            object_list = Post.objects.all()
         return object_list
 
     def get_context_data(self, **kwargs):

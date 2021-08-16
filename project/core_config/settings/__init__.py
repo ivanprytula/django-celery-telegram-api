@@ -7,6 +7,11 @@
     - If SQLite:
         1. export ENV_ROLE="testing"
         2. review core_config/settings/testing.py for details.
+3. You will switch to PostgreSQL for running tests after this =)
+
+  File "/home/.../lib/python3.9/site-packages/django/db/backends/base/operations.py", line 176, in distinct_sql
+    raise NotSupportedError('DISTINCT ON fields is not supported by this database backend')
+django.db.utils.NotSupportedError: DISTINCT ON fields is not supported by this database backend
 """
 import importlib
 import os

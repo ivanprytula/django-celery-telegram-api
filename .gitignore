@@ -6,8 +6,7 @@
 venv/
 env/
 .venv
-deploy/dev/.env
-deploy/prod/.env
+deploy/*/.env
 project/.env
 
 __pycache__/

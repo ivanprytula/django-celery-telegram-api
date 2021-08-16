@@ -10,27 +10,60 @@
 ---
 **Handy commands:**
 
+## General
+```shell
+chmod +x ./setup-scripts/*.sh
+cat /etc/*-release
+
+
+```
+
+## Docker related
 ```shell
 docker rmi -f $(docker images -f "dangling=true" -q)
-
-python -c "import django; print(django.__path__)"
-
-chmod +x ./setup-scripts/*.sh
-
 docker-compose exec --user root web python manage.py makemigrations
 # apt-get install sudo -y
 
-cat /etc/*-release
+```
 
+## PostgreSQL related
+```shell
+# How to check if Postgres is running? ver.1
+pgrep -u postgres -fa -- -D
+# OUTPUT:
+# 69612 /usr/lib/postgresql/13/bin/postgres -D /var/lib/postgresql/13/main -c config_file=/etc/postgresql/13/main/postgresql.conf
+
+# ver.2
+service postgresql status
+
+# Find PostgreSQL location
+sudo find /usr -wholename '*/bin/postgres'
+# OUTPUT: /usr/lib/postgresql/13/bin/postgres
+
+# Find your post
+sudo sed -n 4p <$PGDATA>/postmaster.pid
+sudo sed -n 4p /var/lib/postgresql/13/main/postmaster.pid
+
+# Run PostgreSQL client:
+sudo -u postgres psql
+
+pg_lsclusters
+# Ver Cluster Port Status Owner    Data directory              Log file
+13  main    5432 online postgres /var/lib/postgresql/13/main /var/log/postgresql/postgresql-13-main.log
+
+```
+
+## Python related
+```shell
+python -c "import django; print(django.__path__)"
 # After new package was installed >> turn off VPN (if any) >> rebuild image
-
 pylint --ignore=migrations --load-plugins=pylint_django --django-settings-module=core_config.settings project/
 flake8 project/
 python -Wa manage.py test
-
 python3.9 -m webbrowser -t "https://www.python.org"
-coverage run --source='.' manage.py test accounts/ -v 3
+coverage run --source='.' manage.py test accounts/ -v 3 --timing
 ```
+
 ```python
 import keyword
 print(keyword.kwlist)

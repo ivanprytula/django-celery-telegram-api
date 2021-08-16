@@ -42,7 +42,7 @@ COPY project/Pipfile project/Pipfile.lock $USERAPPHOME/
 # i.e. `/usr/local/lib/python3.9/site-packages/`
 #--deploy — Make sure the packages are properly locked in Pipfile.lock,
 # and abort if the lock file is out-of-date.
-RUN pipenv install --system --deploy
+RUN pipenv install --dev --system --deploy
 
 # Copy project
 COPY project $USERAPPHOME/
