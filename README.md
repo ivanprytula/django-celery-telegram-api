@@ -23,6 +23,8 @@ cat /etc/*-release
 docker rmi -f $(docker images -f "dangling=true" -q)
 docker-compose exec --user root web python manage.py makemigrations
 # apt-get install sudo -y
+docker-compose exec --user root web coverage run --source='.' manage.py test  blog/ -v 3 --timing
+
 
 ```
 

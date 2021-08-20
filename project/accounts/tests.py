@@ -5,6 +5,8 @@ from django.test.client import RequestFactory
 
 from .context_processors import secret_for_invitation
 
+SUPER_USER_EMAIL = 'super@user.com'
+
 
 # 1. MODELS / MANAGERS
 class UsersManagersTests(TestCase):
@@ -33,9 +35,9 @@ class UsersManagersTests(TestCase):
             self.user_model.objects.create_user(email='', password="foo")
 
     def test_create_superuser(self):
-        admin_user = self.user_model.objects.create_superuser('super@user.com',
+        admin_user = self.user_model.objects.create_superuser(SUPER_USER_EMAIL,
                                                               'foo')
-        self.assertEqual(admin_user.email, 'super@user.com')
+        self.assertEqual(admin_user.email, SUPER_USER_EMAIL)
         self.assertTrue(admin_user.is_active)
         self.assertTrue(admin_user.is_staff)
         self.assertTrue(admin_user.is_superuser)
@@ -47,18 +49,18 @@ class UsersManagersTests(TestCase):
             pass
         with self.assertRaises(ValueError):
             self.user_model.objects.create_superuser(
-                email='super@user.com', password='foo', is_superuser=False)
+                email=SUPER_USER_EMAIL, password='foo', is_superuser=False)
 
 
 # 2. VIEWS
 
 # 3. TEMPLATES
 
-# 3. URLS
+# 4. URLS
 
-# 4. FORMS
+# 5. FORMS
 
-# 5. CONTEXT
+# 6. CONTEXT
 class ContextProcessorsTests(TestCase):
     def setUp(self):
         self.request_factory = RequestFactory()
@@ -74,4 +76,5 @@ class ContextProcessorsTests(TestCase):
         context = secret_for_invitation(request_at_non_root_page)
         self.assertFalse(context.values())
 
-# 5. ADMIN
+# 7. ADMIN
+# 8. TASKS

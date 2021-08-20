@@ -11,7 +11,7 @@ from .models import Post
 from .views import PostDetailView
 
 
-# 1. MODELS / MANAGERSnce for the entire
+# 1. MODELS / MANAGERS
 class ModelsTests(TestCase):
     comment_content = None
     post_commenter = None
