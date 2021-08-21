@@ -1,14 +1,18 @@
+from celery.contrib.testing.worker import start_worker
 from django.contrib.auth import get_user_model
 from django.test import Client
 from django.test import tag
 from django.test import TestCase
+from django.test import TransactionTestCase
 from django.test.client import RequestFactory
 from django.urls import reverse
 
 from .models import Category
 from .models import Comment
 from .models import Post
+from .tasks import post_unpublished_to_telegram
 from .views import PostDetailView
+from core_config.celery import app
 
 
 # 1. MODELS / MANAGERS
@@ -116,3 +120,41 @@ class PostListViewTests(TestCase):
             response.context['posts'],
             self.posts,
         )
+
+
+# TASKS
+class TasksTests(TransactionTestCase):
+    """Invoking your Celery tasks inside your tests with the apply() method executes the task synchronously and
+    locally. This allows you to write tests that look and feel very similar to the ones for your API endpoints."""
+    celery_worker = None
+    post_model = None
+    databases = '__all__'
+    fixtures = ['users.json', 'posts.json', 'categories.json', 'comments.json']
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.post_model = Post
+
+        # Start up celery worker
+        cls.celery_worker = start_worker(app, perform_ping_check=False)
+        cls.celery_worker.__enter__()
+
+    @classmethod
+    def tearDownClass(cls):
+        super().tearDownClass()
+
+        # Close worker
+        cls.celery_worker.__exit__(None, None, None)
+
+    def test_post_unpublished_to_telegram_success(self):
+        self.post_model.objects.all().update(is_published_to_telegram=False)
+        self.task = post_unpublished_to_telegram.apply()
+        self.result = self.task.get()
+        self.assertTrue(self.result)
+
+    def test_post_unpublished_to_telegram_no_fresh_posts(self):
+        self.post_model.objects.all().update(is_published_to_telegram=True)
+        self.task = post_unpublished_to_telegram.apply()
+        self.result = self.task.get()
+        self.assertFalse(self.result)

@@ -18,9 +18,7 @@ def sample_task():
 def post_unpublished_to_telegram():
     fresh_posts = Post.objects.filter(is_published_to_telegram=False)
 
-    if not fresh_posts:
-        pass
-    else:
+    if fresh_posts:
         telegram_settings = settings.TELEGRAM_API
         bot = telegram.Bot(token=telegram_settings['bot_token'])
 
@@ -34,7 +32,9 @@ def post_unpublished_to_telegram():
                     text=msg_html, parse_mode=telegram.ParseMode.HTML)
                 fresh_post.is_published_to_telegram = True
                 fresh_post.save()
+                return True
             except Exception as common_exec:
                 raise telegram.error.TelegramError(
                     'Something is wrong with Telegram '
                     'channel.') from common_exec
+    return False

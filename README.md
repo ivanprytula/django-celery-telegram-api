@@ -24,6 +24,7 @@ docker rmi -f $(docker images -f "dangling=true" -q)
 docker-compose exec --user root web python manage.py makemigrations
 # apt-get install sudo -y
 docker-compose exec --user root web coverage run --source='.' manage.py test  blog/ -v 3 --timing
+docker-compose exec web python manage.py test blog/ --force-color --timing
 
 
 ```

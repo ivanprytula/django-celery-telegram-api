@@ -16,6 +16,9 @@ __pycache__/
 htmlcov/
 .coverage
 
+# pytest
+*/.pytest_cache
+
 # Django stuff:
 */db.sqlite3
 */staticfiles
