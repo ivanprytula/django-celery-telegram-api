@@ -309,12 +309,8 @@ def say_whee2():
 
 
 @repeat(num_times=3)
-def greet2(name):
+def greet3(name):
     print(f"Hello {name}")
-
-
-# s ay_whee2()
-# greet2('Bobby')
 
 
 ### Stateful Decorators # noqa
@@ -435,14 +431,10 @@ def cache(func):
 
 @cache
 @count_calls
-def fibonacci(num):
+def fibonacci2(num):
     if num < 2:
         return num
-    return fibonacci(num - 1) + fibonacci(num - 2)
-
-
-# p rint(fibonacci(20))
-print()
+    return fibonacci2(num - 1) + fibonacci2(num - 2)
 
 
 # In the STL, a Least Recently Used (LRU) cache is available as @functools.lru_cache

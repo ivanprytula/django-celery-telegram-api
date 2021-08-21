@@ -22,6 +22,7 @@ globals().update(vars(env_settings))
 
 AutoConfig = globals().get('AutoConfig')
 ENV_BASE_DIR = globals().get('ENV_BASE_DIR')
+BASE_DIR = globals().get('BASE_DIR')
 dj_database_url = globals().get('dj_database_url')
 
 if 'test' in sys.argv or 'test_coverage' in sys.argv:

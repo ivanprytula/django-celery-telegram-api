@@ -10,12 +10,6 @@ def celery_config():
     }
 
 
-@pytest.fixture(scope="session")
-def celery_worker_parameters():
-    """Setup Celery worker parameters."""
-    return {"without_heartbeat": False}
-
-
 @pytest.fixture(scope='session')
 def celery_parameters():
     """Setup Celery test app parameters."""
@@ -30,6 +24,7 @@ def celery_worker_parameters():
     return {
         'queues': ('high-prio', 'low-prio'),
         'exclude_queues': ('celery'),
+        "without_heartbeat": False,
     }
 
 
