@@ -6,8 +6,7 @@
 venv/
 env/
 .venv
-deploy/dev/.env
-deploy/prod/.env
+deploy/*/.env
 project/.env
 
 __pycache__/
@@ -16,6 +15,9 @@ __pycache__/
 # Unit test / coverage reports
 htmlcov/
 .coverage
+
+# pytest
+*/.pytest_cache
 
 # Django stuff:
 */db.sqlite3

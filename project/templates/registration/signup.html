@@ -1,15 +1,40 @@
 {% extends '__base.html' %}
+{% load widget_tweaks %}
 
 {% block title %}Sign Up{% endblock %}
 
 {% block content %}
-  <h2>Sign up / Register</h2>
 
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign Up</button>
-  </form>
+  <main class="form-login mt-5 mx-auto">
 
-  <p><a href="{% url 'login' %}">Back to login</a></p>
+    <div class="container-md">
+      <h1 class="h3 mb-4 mt-4">Sign up / Register</h1>
+
+      <form method="post">
+        {% csrf_token %}
+
+        {% for hidden_field in form.hidden_fields %}
+          {{ hidden_field }}
+        {% endfor %}
+
+        {% for field in form.visible_fields %}
+          <div class="form-group">
+            {{ field.label_tag }}
+
+            {% render_field field class="form-control" %}
+
+            {% if field.help_text %}
+              <small class="form-text text-muted text-start">{{ field.help_text }}</small>
+            {% endif %}
+          </div>
+        {% endfor %}
+
+        <button class="w-100 btn btn-lg btn-primary mt-4"
+                type="submit">Sign Up
+        </button>
+      </form>
+
+
+    </div>
+  </main>
 {% endblock %}

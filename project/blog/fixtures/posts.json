@@ -1,0 +1,178 @@
+[
+  {
+    "model": "blog.post",
+    "pk": 1,
+    "fields": {
+      "author": 1,
+      "title": "Project INTRO",
+      "slug": "project-intro",
+      "content": "We are a big distributed team working with a fantastic customer, a giant in mining industry, located in Canada. Mining\r\nis an amazingly interesting, broad and challenging domain. Having dived into it about 1.5 years ago, we are now\r\ndeveloping several web applications and dashboards for different categories of users simultaneously. The destination of\r\nall of our products is: simplification, time and resource saving. And we rock!\r\n\r\nOur expertise, knowledge and dedication is highly valued by the customer, and earned us a status of trusted vendor.\r\nSoftServe keeps being engaged in new activities, and here we are - looking for new talents expand our fantastic team.",
+      "created_at": "2021-08-02T21:32:20.238Z",
+      "last_modified": "2021-08-10T22:13:48.803Z",
+      "is_published_to_telegram": true,
+      "categories": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "blog.post",
+    "pk": 3,
+    "fields": {
+      "author": 1,
+      "title": "Enter title...post 6",
+      "slug": "post-6",
+      "content": "sdfdf title",
+      "created_at": "2021-08-02T21:44:46.892Z",
+      "last_modified": "2021-08-12T22:08:00.933Z",
+      "is_published_to_telegram": true,
+      "categories": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "blog.post",
+    "pk": 5,
+    "fields": {
+      "author": 1,
+      "title": "Enter title...3",
+      "slug": "post-3",
+      "content": "dfsdfdgd",
+      "created_at": "2021-08-03T15:09:44.075Z",
+      "last_modified": "2021-08-12T22:08:00.772Z",
+      "is_published_to_telegram": true,
+      "categories": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "blog.post",
+    "pk": 7,
+    "fields": {
+      "author": 1,
+      "title": "Some info 6 title",
+      "slug": "some-info-6",
+      "content": "edited information\r\nedited informationedited informationedited informationedited informationedited informationedited informationedited informationedited informationedited informationedited informationedited informationedited informationedited information\r\nfsdjkfskdjhfkjsdhfsdf\r\nsdfsdf",
+      "created_at": "2021-08-05T20:54:22.798Z",
+      "last_modified": "2021-08-12T22:08:00.636Z",
+      "is_published_to_telegram": true,
+      "categories": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "blog.post",
+    "pk": 8,
+    "fields": {
+      "author": 1,
+      "title": "some nice info title",
+      "slug": "nice-info-11",
+      "content": "n this tutorial, we will look at some common mistakes that are often made by Django developers and ways to avoid them. This tutorial is useful even if you’re a skilled Django developer because mistakes, like maintaining an unmanageably large settings or naming conflicts in static assets, aren’t just limited to new developers taking their first stab at Django.",
+      "created_at": "2021-08-09T17:19:49.093Z",
+      "last_modified": "2021-08-12T22:08:00.461Z",
+      "is_published_to_telegram": true,
+      "categories": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "blog.post",
+    "pk": 9,
+    "fields": {
+      "author": 1,
+      "title": "Nice post 12 title",
+      "slug": "nice-post-12",
+      "content": "Django Best Practices\r\n\r\nThis is a living document of best practices in developing and deploying with the Django Web framework. These should not be seen as the right way or the only way to work with Django, but instead best practices we’ve honed after years of working with the framework.\r\n\r\nIt is a fork of the great django-reusable-app-docs project started by Brian Rosner and Eric Holscher regarding best practices for writing and maintaining reusable Django apps.\r\n\r\nNote\r\n\r\nThe source code for this documentation lives on GitHub as django-best-practices and can be built in a number of formats using Sphinx.",
+      "created_at": "2021-08-09T17:20:25.512Z",
+      "last_modified": "2021-08-12T22:08:00.300Z",
+      "is_published_to_telegram": true,
+      "categories": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "blog.post",
+    "pk": 10,
+    "fields": {
+      "author": 1,
+      "title": "Enter title...13",
+      "slug": "coding-style-13",
+      "content": "Coding Style\r\n\r\nIn general, code should be clean, concise and readable. The Zen of Python (PEP 20) is a great introduction to best coding practices for Python.\r\n\r\n    Follow the Style Guide for Python Code (PEP 8) as closely as reasonable.\r\n    Follow the Django coding style.",
+      "created_at": "2021-08-09T17:21:03.120Z",
+      "last_modified": "2021-08-12T22:06:01.042Z",
+      "is_published_to_telegram": true,
+      "categories": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "blog.post",
+    "pk": 11,
+    "fields": {
+      "author": 1,
+      "title": "Enter title...14",
+      "slug": "title-14",
+      "content": "Getting Help \r\n\r\n    Language: en \r\n\r\n    Documentation version: 3.2 \r\n\r\nSearch¶\r\n\r\nA common task for web applications is to search some data in the database with user input. In a simple case, this could be filtering a list of objects by a category. A more complex use case might require searching with weighting, categorization, highlighting, multiple languages, and so on. This document explains some of the possible use cases and the tools you can use.\r\n\r\nWe’ll refer to the same models used in Making queries.\r\nUse Cases¶\r\nStandard textual queries¶\r\n\r\nText-based fields have a selection of matching operations. For example, you may wish to allow lookup up an author like so:\r\n\r\n>>> Author.objects.filter(name__contains='Terry')\r\n[<Author: Terry Gilliam>, <Author: Terry Jones>]\r\n\r\nThis is a very fragile solution as it requires the user to know an exact substring of the author’s name. A better approach could be a case-insensitive match (icontains), but this is only marginally better.\r\nA database’s more advanced comparison functions¶\r\n\r\nIf you’re using PostgreSQL, Django provides a selection of database specific tools to allow you to leverage more complex querying options. Other databases have different selections of tools, possibly via plugins or user-defined functions. Django doesn’t include any support for them at this time. We’ll use some examples from PostgreSQL to demonstrate the kind of functionality databases may have.",
+      "created_at": "2021-08-09T20:46:43.572Z",
+      "last_modified": "2021-08-12T22:06:00.891Z",
+      "is_published_to_telegram": true,
+      "categories": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "blog.post",
+    "pk": 12,
+    "fields": {
+      "author": 1,
+      "title": "new post 14",
+      "slug": "new-post-14",
+      "content": "Django is a free and open source Python web framework that helpfully solves common development challenges and allows you build flexible, well-structured applications. Django has a lot of modern features out of the box. For me personally, the Admin, Object Relational Mapping tool (ORM), Routing, and Templating features made Django my first choice because applications require a lot of work and, while I enjoy my job as much as any developer could, I want to spend as little time as possible on these basic repetitive tasks. Django allows you to do all this without compromising on flexibility.",
+      "created_at": "2021-08-09T22:05:10.306Z",
+      "last_modified": "2021-08-12T22:06:00.742Z",
+      "is_published_to_telegram": true,
+      "categories": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "blog.post",
+    "pk": 13,
+    "fields": {
+      "author": 1,
+      "title": "Extra info today",
+      "slug": "new-post-15",
+      "content": "Writing code¶\r\n\r\nSo you’d like to write some code to improve Django? Awesome! There are several ways you can help Django’s development:\r\n\r\n    Report bugs in our ticket tracker.\r\n    Join the django-developers mailing list and share your ideas for how to improve Django. We’re always open to suggestions. You can also interact on the Django forum and the #django-dev IRC channel.\r\n    Submit patches for new and/or fixed behavior. If you’re looking for a way to get started contributing to Django read the Writing your first patch for Django tutorial and have a look at the easy pickings tickets. The Patch review checklist will also be helpful.\r\n    Improve the documentation or write unit tests.\r\n    Triage tickets and review patches created by other users.\r\n    Read the Advice for new contributors to help you get orientated in the development process.",
+      "created_at": "2021-08-09T22:05:50.345Z",
+      "last_modified": "2021-08-12T22:06:00.589Z",
+      "is_published_to_telegram": true,
+      "categories": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "blog.post",
+    "pk": 14,
+    "fields": {
+      "author": 1,
+      "title": "About Django",
+      "slug": "abour-django-3",
+      "content": "Django’s killer feature is a powerful configurable admin interface which builds automatically (automagically?) from your models’ schema and admin panel models, making you feel like a wizard. Through the Admin interface, a user can configure a lot of things including the access control list (ACL), row-level permissions and actions, filters, orders, widgets, forms, extra URL helpers, and anything else you can imagine. I believe every application requires an admin panel—if not yet, it’s simply a matter of time until your basic application needs one. With Django admin, you can create one quickly and flexibly.",
+      "created_at": "2021-08-09T22:06:24.334Z",
+      "last_modified": "2021-08-12T22:06:00.434Z",
+      "is_published_to_telegram": true,
+      "categories": [
+        1
+      ]
+    }
+  }
+]
