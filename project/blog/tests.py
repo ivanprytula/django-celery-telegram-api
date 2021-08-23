@@ -7,12 +7,15 @@ from django.test import TransactionTestCase
 from django.test.client import RequestFactory
 from django.urls import reverse
 
+from .forms import CommentForm
 from .models import Category
 from .models import Comment
 from .models import Post
 from .tasks import post_unpublished_to_telegram
 from .views import PostDetailView
 from core_config.celery import app
+
+REGULAR_USER_EMAIL = 'normal@user.com'
 
 
 # 1. MODELS / MANAGERS
@@ -25,7 +28,7 @@ class ModelsTests(TestCase):
     post_title = None
     post_author = None
     post_model = None
-    post_category_model = None
+    post_category = None
     user_model = None
 
     # Tests are more readable and it’s more maintainable to create objects using the ORM
@@ -33,15 +36,15 @@ class ModelsTests(TestCase):
     def setUpTestData(cls):
         cls.post_model = Post
         cls.user_model = get_user_model()
-        cls.post_category_model = Category
+        cls.post_category = Category
         cls.comment_model = Comment
 
-        cls.post_author = cls.user_model.objects.create_user(email='normal@user.com',
+        cls.post_author = cls.user_model.objects.create_user(email=REGULAR_USER_EMAIL,
                                                              password='foo')
         cls.post_commenter = cls.user_model.objects.create_user(email='normal_commenter@user.com',
                                                                 password='bar')
 
-        cls.post_category_model = cls.post_category_model.objects.create(name='cool_python')
+        cls.post_category = cls.post_category.objects.create(name='cool_python')
         cls.post_title = 'The very first test post'
         cls.post_slug = 'any-slug-name'
         cls.post_content = '''
@@ -55,7 +58,7 @@ class ModelsTests(TestCase):
                                                  content=cls.post_content,
                                                  is_published_to_telegram=False)
 
-        new_post.categories.add(cls.post_category_model)
+        new_post.categories.add(cls.post_category)
 
         cls.comment_content = 'Very good post!'
         cls.new_comment = cls.comment_model.objects.create(post=new_post, author=cls.post_commenter,
@@ -72,7 +75,7 @@ class ModelsTests(TestCase):
         self.assertIsInstance(new_post, Post)
 
         self.assertEqual(str(new_post), new_post.title)
-        self.assertEqual(str(new_post.categories.get(name='cool_python')), str(self.post_category_model))
+        self.assertEqual(str(new_post.categories.get(name='cool_python')), str(self.post_category))
 
     def test_get_absolute_url(self):
         new_post = self.post_model.objects.get(id=1)
@@ -122,7 +125,142 @@ class PostListViewTests(TestCase):
         )
 
 
+class PostCreateViewTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.template_name = 'blog/post_create.html'
+        cls.user = get_user_model().objects.create_user(email=REGULAR_USER_EMAIL, password='foo')
+
+    def test_render_post_create_view(self):
+        # 2. Authorize user
+        is_authorized = self.client.login(username=REGULAR_USER_EMAIL, password='foo')
+        self.assertTrue(is_authorized)
+
+        # 3. Visit blog:post-create url
+        response = self.client.get(reverse('blog:post-create'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, self.template_name)
+
+    def test_post_create_view_success(self):
+        is_authorized = self.client.login(username=REGULAR_USER_EMAIL, password='foo')
+        self.assertTrue(is_authorized)
+
+        new_post = {
+            'author': self.user,
+            'title': 'New cool post',
+            'slug': 'new_cool_post',
+            'content': 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
+            'categories': ['python-code']
+        }
+        response = self.client.post(reverse('blog:post-create'), kwargs=new_post)
+        self.assertEqual(response.status_code, 200)
+
+
+class PostDetailViewTests(TestCase):
+    fixtures = ['users.json', 'posts.json', 'categories.json', 'comments.json']
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.template_name = 'blog/post_detail.html'
+        cls.user = get_user_model().objects.create_user(email=REGULAR_USER_EMAIL, password='foo')
+
+    def test_render_post_detail_view(self):
+        is_authorized = self.client.login(username=REGULAR_USER_EMAIL, password='foo')
+        self.assertTrue(is_authorized)
+
+        post = Post.objects.filter(comments__isnull=False).first()
+        response = self.client.get(reverse('blog:post-detail', kwargs={'slug': post.slug}))
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('comments', response.context)
+
+    def test_add_comment(self):
+        user = get_user_model().objects.get(pk=1)
+        post = Post.objects.get(pk=1)
+        data = {
+            'commenter_name': 'I\'ll not tell you mu name.',
+            'post_id': post.id,
+            'author': user,
+            'content': 'cool article, yo!'
+        }
+        comment_form = CommentForm(data={**data})
+        new_comment = comment_form.save(commit=False)
+        new_comment.post = post
+        comment_form.save()
+        self.assertTrue(comment_form.is_valid())
+
+
+class PostUpdateViewTests(TestCase):
+    fixtures = ['users.json', 'posts.json', 'categories.json']
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.template_name = 'blog/post_update.html'
+        cls.user = get_user_model().objects.create_user(email=REGULAR_USER_EMAIL, password='foo')
+
+    def test_render_post_update_view(self):
+        is_authorized = self.client.login(username=REGULAR_USER_EMAIL, password='foo')
+        self.assertTrue(is_authorized)
+
+        response = self.client.get(reverse('blog:post-update', kwargs={'pk': 1}))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, self.template_name)
+
+    def test_post_update_view_success(self):
+        is_authorized = self.client.login(username=REGULAR_USER_EMAIL, password='foo')
+        self.assertTrue(is_authorized)
+
+        post = Post.objects.get(pk=1)
+        post.title = 'updated title'
+        post.content = 'updated content'
+        post.categories.add(2)
+        post.save()
+
+        response = self.client.put(reverse('blog:post-update', kwargs={'pk': post.pk}))
+        self.assertEqual(response.status_code, 200)
+
+
+class PostDeleteViewTests(TestCase):
+    fixtures = ['users.json', 'posts.json', 'categories.json']
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.template_name = 'blog/post_delete.html'
+        cls.user = get_user_model().objects.create_user(email=REGULAR_USER_EMAIL, password='foo')
+
+    def test_render_post_delete_view(self):
+        is_authorized = self.client.login(username=REGULAR_USER_EMAIL, password='foo')
+        self.assertTrue(is_authorized)
+
+        response = self.client.get(reverse('blog:post-delete', kwargs={'pk': 1}))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, self.template_name)
+
+    def test_post_delete_view(self):
+        is_authorized = self.client.login(username=REGULAR_USER_EMAIL, password='foo')
+        self.assertTrue(is_authorized)
+
+        response = self.client.post(reverse('blog:post-update', kwargs={'pk': 1}))
+        self.assertEqual(response.status_code, 200)
+
+
+class PostsByCategoryViewTests(TestCase):
+    fixtures = ['users.json', 'posts.json', 'categories.json']
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.template_name = 'blog/post_category.html'
+
+    def test_posts_list_by_category(self):
+        category = Category.objects.get(pk=1)
+        response = self.client.get(reverse('blog:post-category', kwargs={'category': category.name}))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, self.template_name)
+        self.assertIn('posts', response.context)
+
+
 # TASKS
+@tag('exclude')
 class TasksTests(TransactionTestCase):
     """Invoking your Celery tasks inside your tests with the apply() method executes the task synchronously and
     locally. This allows you to write tests that look and feel very similar to the ones for your API endpoints."""
