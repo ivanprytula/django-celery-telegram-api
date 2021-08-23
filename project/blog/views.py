@@ -67,7 +67,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 
 class PostDetailView(FormMixin, DetailView):
-    """Post details view accessed by primary key."""
+    """Post details view accessed by slug."""
 
     model = Post
     template_name = 'blog/post_detail.html'
