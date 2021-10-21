@@ -13,7 +13,9 @@ from .views import PostUpdateView
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 router = routers.DefaultRouter()
-router.register(r'posts', api_views.PostViewSet, basename='test')
+router.register(r'posts', api_views.PostViewSet, 'post')
+router.register(r'users', api_views.CustomUserViewSet, basename='customuser')
+
 
 app_name = 'blog'
 

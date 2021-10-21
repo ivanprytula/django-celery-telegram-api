@@ -20,6 +20,14 @@ cat /etc/*-release
 
 ## Docker related
 ```shell
+# Activate rootless client:
+# 1. To specify the socket path using $DOCKER_HOST:
+export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
+ # example: docker run -d -p 8080:80 nginx
+# 2. To specify the CLI context using docker context:
+docker context use rootless
+# example: docker run -d -p 8080:80 nginx
+
 docker rmi -f $(docker images -f "dangling=true" -q)
 docker-compose exec --user root web python manage.py makemigrations
 # apt-get install sudo -y

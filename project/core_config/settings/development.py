@@ -61,7 +61,6 @@ CELERY_BEAT_SCHEDULE = {
     },
 }
 
-
 TELEGRAM_API = {
     'bot_token': config('TELEGRAM_API_BOT_TOKEN'),
     'channel_name': 'djcelery',
